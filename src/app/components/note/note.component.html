@@ -1,0 +1,9 @@
+<app-takenote (addingNote)="recieveMessage($event)"></app-takenote>
+<div class="pinned" *ngIf='cards.length > 0'>
+    PINNED
+</div>
+<app-displaynote [cards]="cards" (Pinned)="recievePinned($event)"   (isPinned)="recieveisPinned($event)"></app-displaynote>
+<div class="others" *ngIf='Unpinnedcards.length >0 && cards.length>0'>
+    OTHERS
+</div>
+<app-displaynote [cards]="Unpinnedcards" (UnPinned)="recieveUnPinned($event)" (isPinned)="recieveisPinned($event)"></app-displaynote>
