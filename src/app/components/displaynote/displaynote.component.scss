@@ -259,15 +259,25 @@ padding: 5px
   .title{
     font-family: 'googlefonts',arial,sans-serif;
     font-weight: bold;
-    padding-bottom: 4px
+    padding-bottom: 4px;
+    width: 233px;
+    word-break: break-word;
   }
   .discp{
     font-family: 'googlefonts',arial,sans-serif;
     word-break: break-all;
     padding-bottom: 4px;
     max-width: 240px;
+   
   }
 }
+
+
+.sasas{
+  width: 220px;
+  word-break: break-word;
+}
+
 .close{
   .listView{
     flex-direction: column;
@@ -288,13 +298,20 @@ padding: 5px
     .title{
       font-family: 'googlefonts',arial,sans-serif;
       font-weight: bold;
-      padding-bottom: 4px
+      padding-bottom: 4px;
+      width: 505px;
+      word-break: break-word;
+
     }
     .discp{
       font-family: 'googlefonts',arial,sans-serif;
       word-break: break-all;
       padding-bottom: 2px;
       max-width: 100%;
+    }
+    .sasas{
+      width: 550px;
+      word-break: break-word;
     }
   }
 }
@@ -319,13 +336,20 @@ padding: 5px
     .title{
       font-family: 'googlefonts',arial,sans-serif;
       font-weight: bold;
-      padding-bottom: 4px
+      padding-bottom: 4px;
+      width: 505px;
+      word-break: break-word;
     }
     .discp{
       font-family: 'googlefonts',arial,sans-serif;
       word-break: break-all;
       padding-bottom: 2px;
       max-width: 100%;
+    }
+
+    .sasas{
+      width: 550px;
+      word-break: break-word;
     }
   }
 }

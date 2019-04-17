@@ -16,6 +16,8 @@ export class NoteComponent implements OnInit {
   message:string;
   grid='row wrap'
   ngOnInit() {
+    console.log('note run');
+    
     this.getCards()
     this.data.currentMessage.subscribe(message=>{
       console.log("in note grid",message);
@@ -42,7 +44,7 @@ export class NoteComponent implements OnInit {
       
       this.Unpinnedcards.push(carddata[i])
       }
-      console.log("array cards",this.cards);
+      // console.log("array cards",this.cards);
       this.cards = this.cards.reverse();
 
      

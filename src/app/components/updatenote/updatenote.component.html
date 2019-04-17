@@ -2,9 +2,9 @@
 
   <div style="margin: 20px">
     <div fxFlex="100" fxLayoutAlign='space-between start' fxLayout='row'>
-      <div><input class="input" matInput [(ngModel)]="data.array.title" placeholder="add title here"></div>
-      <!-- <div >{{data.array.title}}</div> -->
-      <div>
+      <div *ngIf="data.trash!='trash'"><input class="input" matInput [(ngModel)]="data.array.title"  placeholder="add title here"></div>
+      <div *ngIf="data.trash=='trash'" (click)="openSnackBar()">{{data.array.title}}</div>
+      <div *ngIf="data.trash!='trash'">
         <button *ngIf="!data.array.pinned" matTooltip="Pin note" mat-icon-button color="basic"
           (click)="pinnedbar(data.array)" class="barpin">
 
@@ -22,18 +22,19 @@
   <div style="margin:20px">
     <!-- ....disc...... -->
 
-    <div><input class='desc' matInput [(ngModel)]="data.array.description" placeholder="Add description"></div>
-    <!-- <div (click)='openSnackBar()'></div> -->
+    <div *ngIf="data.trash!='trash'"><input class='desc' matInput [(ngModel)]="data.array.description"
+        placeholder="Add description"></div>
+    <div *ngIf="data.trash=='trash'" (click)='openSnackBar()'>{{data.array.description}}</div>
 
     <!-- ..... -->
 
     <!-- <app-iconlist></app-iconlist> -->
 
-    <div fxLayoutAlign="start end"   >
-      <div  *ngIf="data.trash=='trash'">
+    <div fxLayoutAlign="start end">
+      <div *ngIf="data.trash=='trash'">
         <button mat-icon-button [matMenuTriggerFor]="menu" colour="basic" matTooltip="more">
-              <img id="img" src="../../../assets/more.svg" />
-            </button>
+          <img id="img" src="../../../assets/more.svg" />
+        </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Delete Forever</button>
           <button mat-menu-item>Restore</button>
@@ -48,7 +49,9 @@
         <app-iconlist [card]='data.array'></app-iconlist>
       </div>
 
-      <button fxLayoutAlign="space-between end" mat-button [mat-dialog-close]="data" cdkFocusInitial>close</button>
+      <div class="btn">
+        <button fxLayoutAlign="space-between end" mat-button [mat-dialog-close]="data" cdkFocusInitial>close</button>
+      </div>
     </div>
   </div>
 

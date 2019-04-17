@@ -68,10 +68,12 @@ getHttp(url:string){
 }
 
 put(url: string, body: any): any {
+
+  
   url = this.apiBaseurl + url;
   const httpOptions = {
     headers: new HttpHeaders({
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
       token: localStorage.getItem("token")
     })
   };

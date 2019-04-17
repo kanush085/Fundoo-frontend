@@ -84,7 +84,7 @@
                 <div class="title" (click)="openDialog(array,trash)">
                     {{array.title}}
                 </div>
-                <div  class="barpin" >
+                <div  class="barpin"  *ngIf="trash!='trash'" >
                     <button  *ngIf="array.pinned" matTooltip="Unpin note" mat-icon-button color="basic" (click)=doUnPinned(array)>
                         <img src="../../../assets/unpinbar.svg">
                     </button>
@@ -94,7 +94,7 @@
               
                 </div>
             </div>
-            <div (click)="openDialog(array)">
+            <div class="sasas" (click)="openDialog(array,trash)">
                 {{array.description}}
 
             </div>

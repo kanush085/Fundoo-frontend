@@ -10,6 +10,7 @@ import { AuthGuard } from '../app/service/auth/auth.guard';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { UpdatenoteComponent } from './components/updatenote/updatenote.component';
+import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 
 const routes: Routes = [{
   path:'',
@@ -58,6 +59,10 @@ children:[
 },{
   path:'updatenote',
   component:UpdatenoteComponent
+  },
+  {
+    path:'image-cropper',
+    component:ImageCropperComponent
   }
 ];
 

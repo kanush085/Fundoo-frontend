@@ -167,7 +167,7 @@ doUnPinned(array){
 
 
 unPinbar(array){
- array.pinned=true
+array.pinned=true
 this.UnPinned.emit(array)
 }
 }

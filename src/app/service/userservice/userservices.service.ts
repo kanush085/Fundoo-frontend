@@ -12,13 +12,17 @@ export class UserService {
     return this.service.postUser(body, "login");
   }
 
-  register(body:any){
-    return this.service.postUser(body,"register")
+  register(body: any) {
+    return this.service.postUser(body, "register")
   }
-  forgotPassword(body:any){
-    return this.service.postUser(body,"forgotpassword")
+  forgotPassword(body: any) {
+    return this.service.postUser(body, "forgotpassword")
   }
   // resetpassword(body:any){
   //   return this.service.postUser(body,"resetpassword")
   // }
+  profilepic(body: any) {
+    console.log("++++++++++++++++++++++++++++",body);
+    return this.service.put( "setProfilePic",body)
+  }
 }

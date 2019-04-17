@@ -53,11 +53,13 @@ this.userService.login(model).subscribe(data =>{
   // const decoded= helper.decodeToken(this.response.token);
   // console.log("----------------------------------",decoded);
   // console.log("-----------------------",this.response._id);
+  console.log("123245656546546",this.response.image);
   
   localStorage.setItem('token',this.response.token.token)
   localStorage.setItem('userid',this.response._id)
   localStorage.setItem('email',this.emailFormControl.value)
   localStorage.setItem('name',this.response.name)
+  localStorage.setItem('image',this.response.image)
   this.snackBar.open("Logged in successfully..!","ok",{duration:5000})
   this.router.navigate(['dashboard'])
 },error=>{

@@ -33,6 +33,8 @@ import { DisplaynoteComponent } from './components/displaynote/displaynote.compo
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
 import { UpdatenoteComponent } from './components/updatenote/updatenote.component';
+import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -51,6 +53,8 @@ import { UpdatenoteComponent } from './components/updatenote/updatenote.componen
     ArchiveComponent,
     TrashComponent,
     UpdatenoteComponent,
+    ImageCropperComponent,
+    
 
 
 
@@ -78,6 +82,7 @@ import { UpdatenoteComponent } from './components/updatenote/updatenote.componen
     MatMenuModule,
     MatTooltipModule,
     MatDialogModule,
+    ImageCropperModule
 
    
     

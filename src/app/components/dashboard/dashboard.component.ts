@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { ChangeDetectorRef, OnDestroy } from "@angular/core";
 import{DataService} from "../../service/dataservice/data.service"
+import { ImageCropperComponent } from "../image-cropper/image-cropper.component";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
   username:string;
   grid=true;
   side=false;
+  img=localStorage.getItem('image');
   flag:boolean = true;
   private _mobileQueryListener: () => void;
   constructor(media: MediaMatcher,
@@ -74,5 +76,31 @@ sidnave(){
   this.side=!this.side;
   this.service.sidenavChangeMessage(this.side)
   
+}
+
+
+
+fileUpload($event){
+  console.log($event);
+  this.setProfilePic($event)
+}
+
+setProfilePic($event){
+  const dialogRef = this.dialog.open(ImageCropperComponent, {
+    width: '600px',
+        data:  $event 
+
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(result);
+    if(result==undefined){
+      return;
+    }
+    this.img=result.data;
+    localStorage.setItem('image',this.img)
+  
+  })
+
 }
 }

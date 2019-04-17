@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { DisplaynoteComponent, DialogData } from '../displaynote/displaynote.component'
 import { NoteService } from 'src/app/service/noteservice/note.service';
 import { TrashComponent } from '../trash/trash.component';
@@ -12,23 +12,18 @@ import { TrashComponent } from '../trash/trash.component';
 export class UpdatenoteComponent implements OnInit {
 
   pinned = false
+
   
 
   constructor(public dialogRef: MatDialogRef<DisplaynoteComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private noteservice: NoteService) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private noteservice: NoteService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
     
    
   }
-
-
-
-  pinnedbar(array) {
-    console.log("123215645663464",array);
-    
-    // this.pinned = !this.pinned
+  pinnedbar(array) {   
     this.noteservice.doPinned({
       "noteID": [array._id],
       "pinned": true
@@ -48,6 +43,8 @@ export class UpdatenoteComponent implements OnInit {
     })
   
   }
+  openSnackBar(){
+    this.snackBar.open("Can’t edit in Trash", "Ok", { duration: 5000 })
+  }
 
- 
 }
