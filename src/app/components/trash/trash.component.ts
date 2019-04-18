@@ -35,8 +35,5 @@ export class TrashComponent implements OnInit {
 
   }
 
-  EmptyTrash(){
-    
-  }
 
 }

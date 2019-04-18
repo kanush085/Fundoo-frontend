@@ -35,22 +35,23 @@ export class NoteComponent implements OnInit {
       console.log("getcards", data);
       var carddata = data['data']
       this.cards=[];
+      this.Unpinnedcards=[];
       for (let i = 0; i < carddata.length; i++) {
         if(!carddata[i].archive && !carddata[i].trash && carddata[i].pinned)
         {
           this.cards.push(carddata[i])
         }     
     else if(!carddata[i].archive && !carddata[i].trash && !carddata[i].pinned){
-      
       this.Unpinnedcards.push(carddata[i])
       }
       // console.log("array cards",this.cards);
-      this.cards = this.cards.reverse();
-
-     
-
     }
+
+    this.cards = this.cards.reverse();
+console.log("unpinned cards",this.Unpinnedcards);
+
     })
+
   }
 
   recieveMessage($event) {

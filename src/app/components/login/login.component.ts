@@ -53,7 +53,7 @@ this.userService.login(model).subscribe(data =>{
   // const decoded= helper.decodeToken(this.response.token);
   // console.log("----------------------------------",decoded);
   // console.log("-----------------------",this.response._id);
-  console.log("123245656546546",this.response.image);
+  // console.log("123245656546546",this.response.image);
   
   localStorage.setItem('token',this.response.token.token)
   localStorage.setItem('userid',this.response._id)

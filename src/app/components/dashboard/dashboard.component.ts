@@ -77,11 +77,8 @@ sidnave(){
   this.service.sidenavChangeMessage(this.side)
   
 }
-
-
-
 fileUpload($event){
-  console.log($event);
+  console.log("********",$event);
   this.setProfilePic($event)
 }
 

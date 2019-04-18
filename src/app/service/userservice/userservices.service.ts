@@ -22,7 +22,7 @@ export class UserService {
   //   return this.service.postUser(body,"resetpassword")
   // }
   profilepic(body: any) {
-    console.log("++++++++++++++++++++++++++++",body);
+    // console.log("++++++++++++++++++++++++++++",body);
     return this.service.put( "setProfilePic",body)
   }
 }

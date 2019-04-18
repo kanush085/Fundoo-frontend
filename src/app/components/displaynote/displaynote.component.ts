@@ -136,8 +136,8 @@ export class DisplaynoteComponent implements OnInit {
 
 doPinned(array){
   this.pinned=!this.pinned
-  console.log("pinned",this.pinned);
-  console.log("array id",[array._id]);
+  // console.log("pinned",this.pinned);
+  // console.log("array id",[array._id]);
   
   this.noteService.doPinned({
   "pinned":true,
