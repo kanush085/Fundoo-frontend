@@ -17,7 +17,6 @@ export interface DialogData {
 export class DisplaynoteComponent implements OnInit {
   @Input() cards;
   @Input() archived
-  
   @Input() trash
 
   @Output() Pinned=new EventEmitter();
