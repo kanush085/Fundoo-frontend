@@ -80,26 +80,68 @@
 
         <mat-card class="matcard" fxLayout='column' *ngFor='let array of cards' [style.backgroundColor]="array.color">
 
-            <div fxLayout='row' fxLayoutAlign="space-between center" >
+            <div fxLayout='row' fxLayoutAlign="space-between center">
                 <div class="title" (click)="openDialog(array,trash)">
                     {{array.title}}
                 </div>
-                <div  class="barpin"  *ngIf="trash!='trash'" >
-                    <button  *ngIf="array.pinned" matTooltip="Unpin note" mat-icon-button color="basic" (click)=doUnPinned(array)>
+                <div class="barpin" *ngIf="trash!='trash'">
+                    <button *ngIf="array.pinned" matTooltip="Unpin note" mat-icon-button color="basic"
+                        (click)=doUnPinned(array)>
                         <img src="../../../assets/unpinbar.svg">
                     </button>
-                    <button *ngIf="!array.pinned" matTooltip="Pin note"  mat-icon-button color="basic" (click)=doPinned(array)>
-                        <img  src="../../../assets/pinbar.svg">
+                    <button *ngIf="!array.pinned" matTooltip="Pin note" mat-icon-button color="basic"
+                        (click)=doPinned(array)>
+                        <img src="../../../assets/pinbar.svg">
                     </button>
-              
+
                 </div>
             </div>
             <div class="sasas" (click)="openDialog(array,trash)">
                 {{array.description}}
+            </div>
+            <!-- ------------------------------------------------------------------------------------------ -->
+            <div>
+                <mat-chip-list>
+                    
+              
+                    <div  *ngIf='(disdate|date:shortDate)===(array.reminder|date:shortDate)'>
+                        <mat-chip >
+                                <img class="todayrem" src="../../../assets/remi.svg">
+                            Today {{ array.reminder | date:'shortTime' }}
+                             <mat-icon matChipRemove (click)="delete(array)">cancel</mat-icon>
+                        </mat-chip>
+                           
+                    </div>
+        
+                    <div *ngIf='(tomdate|date:shortDate)===(array.reminder|date:shortDate)'>
+                            <mat-chip >
+                                <img  class="todayrem" src="../../../assets/remi.svg">
+                                Tom {{ array.reminder | date:'shortTime' }}
+                                 <mat-icon matChipRemove (click)="delete(array)">cancel</mat-icon>
+                            </mat-chip>
+                               
+                        </div>
+
+
+                </mat-chip-list>
+
+
+
+
 
             </div>
+            <!-- 
+            <mat-chip-list #chipList>
+                <mat-chip *ngIf="disdate===array.reminder" [selectable]="selectable" [removable]="removable">
+                    {{ dateObj | date:'medium' }}</mat-chip>
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip-list> -->
+            <!-- <input [matChipInputFor]="chipList"> -->
 
 
+
+
+            <!-- ------------------------------------------------------------------------------------------------------------------- -->
             <div fxFlex="100" *ngIf="trash=='trash'" fxLayoutAlign="start center">
                 <button mat-icon-button [matMenuTriggerFor]="menu" colour="basic" matTooltip="more">
                     <img id="img" src="../../../assets/more.svg" />

@@ -40,5 +40,9 @@ export class NoteService {
     return this.http.put('doPinned',data)
   }
 
+  reminder(data)
+  {
+    return this.http.put('reminder',data)
+  }
 
 }

@@ -35,7 +35,10 @@ import { TrashComponent } from './components/trash/trash.component';
 import { UpdatenoteComponent } from './components/updatenote/updatenote.component';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {NativeDateModule} from '@angular/material';
+import {MatNativeDateModule, MatSliderModule} from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -82,7 +85,12 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MatMenuModule,
     MatTooltipModule,
     MatDialogModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatDatepickerModule,
+    NativeDateModule,
+    MatNativeDateModule,
+    MatSliderModule,
+    MatChipsModule
 
    
     

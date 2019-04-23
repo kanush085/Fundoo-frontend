@@ -22,6 +22,9 @@ export class DisplaynoteComponent implements OnInit {
   @Output() Pinned=new EventEmitter();
   @Output() UnPinned=new EventEmitter();
   @Output() isPinned=new EventEmitter();
+  disdate
+  tomdate =new Date()
+
   message: string;
   pinned=true
   ispinbar:boolean
@@ -38,11 +41,17 @@ export class DisplaynoteComponent implements OnInit {
 
   constructor(private noteService: NoteService, private data: DataService, public dialog: MatDialog) { }
   ngOnInit() {
+   this.disdate=new Date()
+   this.tomdate=new Date(this.tomdate.getFullYear(),this.tomdate.getMonth(),(this.tomdate.getDate()+1),20,0,0,0)
+   console.log("gggggggggggggggggggggggggggggggggggggggg",this.tomdate);
+   
     this.data.currentMessage.subscribe(message => {
       console.log('message from service ', message);
       this.view = message;
       this.grid.listView = !this.view;
       this.grid.gridView = this.view;
+      
+      
     })
 
     this.data.sidenavMessage.subscribe(data => {
@@ -169,4 +178,15 @@ unPinbar(array){
 array.pinned=true
 this.UnPinned.emit(array)
 }
+delete(array){
+  this.noteService.reminder({
+    "noteID":[array._id],
+    "reminder":""
+  }).subscribe(data=>{
+    console.log("delete reminder",data);
+    array.reminder=""
+  })
+}
+
+
 }

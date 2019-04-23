@@ -177,23 +177,51 @@ background-repeat: no-repeat
     border-radius: 0 25px 25px 0;
 }
 
-  .mat-menu-panel {
-    width: 194px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    /* max-height: calc(100vh - 48px); */
-    /* border-radius: 4px; */
-    outline: 0;
-    padding: 6px 0px 6px 0px
-}
+//   .mat-menu-panel {
+//     width: 194px;
+//     overflow: auto;
+//     -webkit-overflow-scrolling: touch;
+//     /* max-height: calc(100vh - 48px); */
+//     /* border-radius: 4px; */
+//     outline: 0;
+//     padding: 6px 0px 6px 0px
+// }
 
-.later8pm
-{
-  margin-left: 20px
+// .later8pm
+// {
+//   margin-left: 20px
+// }
+// .twm8am{
+//   margin-left: 25px
+// }
+// .rem{
+//   padding: 0 16px
+// }
+
+
+.latertoday{
+  // background-color: darkred;
+  padding: 0px 0px;
+  
 }
-.twm8am{
-  margin-left: 25px
+.Next{
+  padding: 0px 0px;
 }
-.rem{
-  padding: 0 16px
+.Tommrow{
+  padding: 0px 0px
+}
+.date{
+padding: 10px
+}
+.datepicker{
+  margin: 7px;
+}
+.addtime{
+  margin: 7px
+}
+.custom{
+  margin: 7px
+}
+.save{
+  margin-left: 10px
 }

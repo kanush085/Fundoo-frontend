@@ -20,6 +20,8 @@ export class IconlistComponent implements OnInit {
   @Output() unarchiveCard = new EventEmitter();
   @Output() trashCard = new EventEmitter();
   @Output() archivednoteCard = new EventEmitter();
+
+  dateObj=new Date();
   constructor(private noteService: NoteService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -121,6 +123,38 @@ export class IconlistComponent implements OnInit {
     }).subscribe(data => {
       console.log(data, "update color data")
     }), err => console.log(err)
+  }
+
+
+
+ latertoday(card){
+const rem=new Date(this.dateObj.getFullYear(),this.dateObj.getMonth(),this.dateObj.getDate(),20,0,0,0)
+console.log("232131431.323546431451321",rem);
+
+this.noteService.reminder({
+  "noteID": [card._id],
+  "reminder":rem
+}).subscribe(result=>{
+  card.reminder=rem
+  console.log(result,"reminder for note");
+ 
+  
+}),err=>console.log(err);
+
+  }
+
+  Tommrow(card){
+    const Tomrem=new Date(this.dateObj.getFullYear(),this.dateObj.getMonth(),(this.dateObj.getDate()+1),20,0,0,0)
+    console.log("wsemsdsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSkl,;",Tomrem);
+    this.noteService.reminder({
+      "noteID": [card._id],
+      "reminder":Tomrem
+    }).subscribe(result=>{
+      console.log(result,"reminder in tom");
+      card.reminder=Tomrem
+      
+    })
+    
   }
 
 
