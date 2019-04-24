@@ -127,8 +127,9 @@ background-repeat: no-repeat
 #img {
   img {
     width: 18px;
-            height: 18px;
-      opacity: 0.7
+    height: 18px;
+    opacity: 0.7;
+    margin-top: -112%;
   }
 }
 #arc {
@@ -154,6 +155,7 @@ background-repeat: no-repeat
 }
 #later{
   opacity: 0.6;
+  float: right;
 }
 #tom{
   opacity: 0.6;
@@ -202,26 +204,61 @@ background-repeat: no-repeat
 .latertoday{
   // background-color: darkred;
   padding: 0px 0px;
+  width: 100%;
   
 }
 .Next{
-  padding: 0px 0px;
+  // padding: 0px 0px;
+  width: 100%
 }
 .Tommrow{
-  padding: 0px 0px
+  padding: 0px 0px;
+  width: 100%
 }
-.date{
-padding: 10px
-}
+// .date{
+// padding: 10px
+// }
 .datepicker{
   margin: 7px;
+  height: 59px;
+  // width: 276px;
+  .mat-form-field-infix {
+    display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    width: 228px;
+  }
 }
 .addtime{
-  margin: 7px
+  margin: 7px;
+  height: 59px;
+  .mat-form-field-infix {
+  display: block;
+  position: relative;
+  flex: auto;
+  min-width: 0;
+  width: 249px;
+}
 }
 .custom{
-  margin: 7px
+  margin: 7px;
+  height: 59px;
+  .mat-form-field-infix {
+    display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    width: 249px;
+ }
 }
 .save{
   margin-left: 10px
+}
+.mat-menu-content{
+  width: 100%
+}
+.afternoon{
+  flex: 1 1 auto ;
+      padding: 15px 11px
 }

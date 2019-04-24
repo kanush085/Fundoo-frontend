@@ -1,8 +1,8 @@
 <!-- remaind me button -->
-<div fxLayoutAlign="space-between end" fxLayout="row" fxFlex="60" class="icon">
+<div fxLayoutAlign="space-between end" fxLayout="row" fxFlex="60">
   <button id="Remaind" matTooltip="Remind me" mat-icon-button [matMenuTriggerFor]="Reminder">
     <mat-icon>
-      <img src="../../../assets/reminder.svg" /></mat-icon>
+      <img src="../../../assets/bell.svg" /></mat-icon>
   </button>
   <!-- -------------------------------------------------------------------------------------- -->
   <mat-menu #Reminder="matMenu" class="remindermenu">
@@ -11,13 +11,17 @@
         <p>Reminder :</p>
       </mat-list-item>
       <mat-list-item>
-        <div class="latertoday" (click)="latertoday(card)">Later Today <span id="later">8:00 PM</span> </div>
+        <div class="latertoday" (click)="latertoday(card)">Later Today
+          <span id="later">8:00 PM</span>
+        </div>
       </mat-list-item>
       <mat-list-item>
-        <div class="Tommrow" (click)="Tommrow(card)">Tommrow <span id="later">8:00 PM</span> </div>
+        <div class="Tommrow" (click)="Tommrow(card)">Tommrow
+          <span id="later">8:00 PM</span>
+        </div>
       </mat-list-item>
       <mat-list-item>
-        <div class="Next" (click)="NextWeel(card)">Next week <span id="later">8:00 PM</span> </div>
+        <div class="Next" (click)="NextWeek(card)">Next week <span id="later">8:00 AM</span> </div>
       </mat-list-item>
       <mat-list-item>
         <button mat-menu-item [matMenuTriggerFor]="pickdate">
@@ -35,31 +39,62 @@
                   <div>Pick Date and time</div>
                 </mat-list-item>
               </div>
-              <mat-form-field class="datepicker">
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker">
-                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+              <div class="datepicker">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" [(ngModel)]='date' placeholder="Choose a date">
+                  <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="addtime">
+                <mat-form-field (click)="$event.stopPropagation()">
+                  <mat-select placeholder="Add a time">
+                    <div style="display: flex">
+                      <div class="afternoon">
+                        Morning
+                      </div>
+                      <mat-option value="option0" (click)=time(8)>8:00 AM</mat-option>
+                    </div>
+                    <div style="display: flex">
+                      <div class="afternoon">
+                        Afternoon
+                      </div>
+                      <mat-option value="option1" (click)=time(13)>1:00 PM</mat-option>
+                    </div>
+                    <div style="display: flex">
+                      <div class="afternoon ">
+                        Evening
+                      </div>
+                      <mat-option value="option2" (click)=time(18)>6:00 PM</mat-option>
+                    </div>
 
-              <mat-form-field class="addtime" (click)="$event.stopPropagation()">
-                <mat-select placeholder="Add a time">
+                    <div style="display: flex">
+                      <div class="afternoon ">
+                        Night
+                      </div>
+                      <mat-option value="option3" (click)=time(20)> 8:00 PM</mat-option>
+                    </div>
 
-                  <mat-option value="option1">Afternoon 1:00 PM</mat-option>
-                  <mat-option value="option2">Evening 6:00 PM</mat-option>
-                  <mat-option value="option3">Night 8:00 PM</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field class="custom">
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <mat-form-field class="custom" (click)="$event.stopPropagation()">
                 <mat-select placeholder="custom">
+                  <mat-option value="option4"> Does not repeat</mat-option>
 
+                  <mat-option value="option4"> Daily</mat-option>
 
+                  <mat-option value="option4"> Weekly</mat-option>
 
+                  <mat-option value="option4"> Monthly</mat-option>
+
+                  <mat-option value="option4"> Yearly</mat-option>
                 </mat-select>
               </mat-form-field>
               <div class="save" fxLayout="row" fxLayoutAlign="end end">
-                <button mat-button>
+                <button mat-button (click)="saveReminder(card)">
                   Save
                 </button>
               </div>
@@ -97,7 +132,6 @@
 
   <!-- add image button -->
   <div>
-    <!-- <input type="file" > -->
     <button id="img" mat-icon-button matTooltip="Add image">
       <img id="img" (change)="onFileSelected($event)" src="../../../assets/image.svg" />
     </button>

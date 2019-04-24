@@ -372,11 +372,15 @@ visibility: visible;
   opacity: 1.4;
 }
 
-// .mat-menu-content:not(:empty) {
-//   width: 100%;
-//   padding: 0px;
-// }
+
 
 .todayrem{
   padding-right: 5px;
+}
+.mat-chip{
+  background-color: rgba(0,0,0,0.08) !important
+}
+
+.mat-chip-list-wrapper .mat-standard-chip {
+  margin: 3px !important; 
 }

@@ -1,33 +1,36 @@
-import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NoteService } from "../../service/noteservice/note.service"
 import { DataService } from "../../service/dataservice/data.service"
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { UpdatenoteComponent } from "../updatenote/updatenote.component";
 
 export interface DialogData {
   array: [];
-  
+
 }
 
 @Component({
   selector: 'app-displaynote',
   templateUrl: './displaynote.component.html',
-  styleUrls: ['./displaynote.component.scss']
+  styleUrls: ['./displaynote.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
+
 })
 export class DisplaynoteComponent implements OnInit {
   @Input() cards;
   @Input() archived
   @Input() trash
 
-  @Output() Pinned=new EventEmitter();
-  @Output() UnPinned=new EventEmitter();
-  @Output() isPinned=new EventEmitter();
+  @Output() Pinned = new EventEmitter();
+  @Output() UnPinned = new EventEmitter();
+  @Output() isPinned = new EventEmitter();
   disdate
-  tomdate =new Date()
-
+  tomdate = new Date()
+  nextweek = new Date()
   message: string;
-  pinned=true
-  ispinbar:boolean
+  pinned = true
+  ispinbar: boolean
   view;
   side = false;
   grid = {
@@ -39,19 +42,21 @@ export class DisplaynoteComponent implements OnInit {
     close: !this.side
   }
 
-  constructor(private noteService: NoteService, private data: DataService, public dialog: MatDialog) { }
+  constructor(private noteService: NoteService, private data: DataService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
   ngOnInit() {
-   this.disdate=new Date()
-   this.tomdate=new Date(this.tomdate.getFullYear(),this.tomdate.getMonth(),(this.tomdate.getDate()+1),20,0,0,0)
-   console.log("gggggggggggggggggggggggggggggggggggggggg",this.tomdate);
-   
+    this.disdate = new Date()
+    this.tomdate = new Date(this.tomdate.getFullYear(), this.tomdate.getMonth(), (this.tomdate.getDate() + 1), 20, 0, 0, 0)
+    // console.log("gggggggggggggggggggggggggggggggggggggggg", this.tomdate);
+    this.nextweek = new Date(this.nextweek.getFullYear(), this.nextweek.getMonth(), (this.nextweek.getDate() + 7), 8, 0, 0, 0)
+    // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", this.nextweek);
+
     this.data.currentMessage.subscribe(message => {
       console.log('message from service ', message);
       this.view = message;
       this.grid.listView = !this.view;
       this.grid.gridView = this.view;
-      
-      
+
+
     })
 
     this.data.sidenavMessage.subscribe(data => {
@@ -65,39 +70,43 @@ export class DisplaynoteComponent implements OnInit {
 
     })
   }
-  openDialog(array,trash) {
-      this.ispinbar=array.pinned
-      var isArchive=array.archive
-      var deletcard=array.trash
+  openDialog(array, trash) {
+    this.ispinbar = array.pinned
+    var isArchive = array.archive
+    var deletcard = array.trash
+ 
     const dialogRef = this.dialog.open(UpdatenoteComponent, {
       width: '600px',
-      data: { array,trash }
+      data: { array, trash }
 
     });
     dialogRef.afterClosed().subscribe(result => {
 
       console.log('The dialog was closed', result);
-      if(this.ispinbar!=result.array.pinned)
-      {
+      if (this.ispinbar != result.array.pinned) {
         this.isPinned.emit(result.array)
       }
-     if(isArchive!=result.array.archive || deletcard!=result.array.trash)
-     {
-       let ind=this.cards.indexOf(result.array)
-      if(ind!=-1)
-      {
-        this.cards.splice(ind,1)
+      if (isArchive != result.array.archive || deletcard != result.array.trash) {
+        let ind = this.cards.indexOf(result.array)
+        if (ind != -1) {
+          this.cards.splice(ind, 1)
+        }
       }
-     }
+      if (result.array.reminder=="") {
+        this.delete(result.array)
+      }
+
       this.noteService.editTitle({
         "noteID": result['array']._id,
         "title": result['array'].title
       }).subscribe(result => {
-        console.log("********************",result);
+        console.log("********************", result);
+
       })
     });
 
     dialogRef.afterClosed().subscribe(result => {
+
       console.log("The dialog is closed after editing the description");
       this.noteService.editDescription({
         "noteID": result['array']._id,
@@ -106,7 +115,7 @@ export class DisplaynoteComponent implements OnInit {
         console.log(result)
       })
     })
-   
+
 
   }
 
@@ -142,51 +151,52 @@ export class DisplaynoteComponent implements OnInit {
   }
 
 
-doPinned(array){
-  this.pinned=!this.pinned
-  // console.log("pinned",this.pinned);
-  // console.log("array id",[array._id]);
-  
-  this.noteService.doPinned({
-  "pinned":true,
-  "noteID":[array._id]
-  }).subscribe( data=>{
-    console.log("data in pinned",data);
-    this.unPinbar(array)
-  })
-}
+  doPinned(array) {
+    this.pinned = !this.pinned
+    // console.log("pinned",this.pinned);
+    // console.log("array id",[array._id]);
 
-pinbar(array){
-   array.pinned=false
-  this.Pinned.emit(array)
-}
+    this.noteService.doPinned({
+      "pinned": true,
+      "noteID": [array._id]
+    }).subscribe(data => {
+      console.log("data in pinned", data);
+      this.unPinbar(array)
+    })
+  }
 
-doUnPinned(array){
-  this.pinned=!this.pinned
-  this.noteService.doPinned({
-    "pinned":false,
-    "noteID":[array._id]
-  }).subscribe(data=>{
-    console.log("data in unpinned",data);
+  pinbar(array) {
+    array.pinned = false
+    this.Pinned.emit(array)
+  }
 
-    this.pinbar(array)
-  })
-}
+  doUnPinned(array) {
+    this.pinned = !this.pinned
+    this.noteService.doPinned({
+      "pinned": false,
+      "noteID": [array._id]
+    }).subscribe(data => {
+      console.log("data in unpinned", data);
+
+      this.pinbar(array)
+    })
+  }
 
 
-unPinbar(array){
-array.pinned=true
-this.UnPinned.emit(array)
-}
-delete(array){
-  this.noteService.reminder({
-    "noteID":[array._id],
-    "reminder":""
-  }).subscribe(data=>{
-    console.log("delete reminder",data);
-    array.reminder=""
-  })
-}
+  unPinbar(array) {
+    array.pinned = true
+    this.UnPinned.emit(array)
+  }
+  delete(array) {
+    this.noteService.reminder({
+      "noteID": [array._id],
+      "reminder": ""
+    }).subscribe(data => {
+      console.log("delete reminder", data);
+      array.reminder = ""
+      this.snackBar.open("Reminder deleted", "Ok", { duration: 5000 })
+    })
+  }
 
 
 }

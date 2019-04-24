@@ -133,7 +133,7 @@
 
         <div fxFlex="10" fxLayoutAlign="start center">
             <div fxFlex="100">
-                <app-iconlist (color)="changeColor($event)" (archivednoteCard)="archive($event)"></app-iconlist>
+                <app-iconlist (color)="changeColor($event)" (archivednoteCard)="archive($event)" (remindernoteCard)="reminderCard($event)"></app-iconlist>
             </div>
             <div fxFlex="20" fxLayoutAlign="end center">
                 <button class="addnote" mat-button (click)="addNote()">

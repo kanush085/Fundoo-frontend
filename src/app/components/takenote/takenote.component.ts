@@ -12,6 +12,7 @@ import { EventEmitter } from "@angular/core";
 export class TakenoteComponent implements OnInit {
   isArchive: boolean = false
   isPinned:boolean = false; 
+  isreminder:string=""
   Pinned=false
   flag = true;
   reqbody: any
@@ -41,7 +42,7 @@ export class TakenoteComponent implements OnInit {
         userId: localStorage.getItem('userid'),
         title: this.noteTitle.value,
         description: this.noteContent.value,
-        reminder: "",
+        reminder: this.isreminder,
         pinned: this.isPinned,
         archive: this.isArchive,
         color: this.bgcolor,
@@ -79,5 +80,15 @@ export class TakenoteComponent implements OnInit {
   changeColor($event) {
     this.bgcolor = $event
   }
+
+  reminderCard($event){
+    this.isreminder=$event
+    console.log("ffffffffffffffffffffffffffffffffff",this.isreminder);
+    
+    this.addNote()
+  }
+
 }
+
+
 

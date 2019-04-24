@@ -48,6 +48,7 @@ export class NoteComponent implements OnInit {
     }
 
     this.cards = this.cards.reverse();
+    this.Unpinnedcards=this.Unpinnedcards.reverse()
 console.log("unpinned cards",this.Unpinnedcards);
 
     })

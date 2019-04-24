@@ -34,6 +34,7 @@ export class UpdatenoteComponent implements OnInit {
   }
 
   unpinbar(array) {
+console.log("11111111111111111111",array);
 
     this.noteservice.doPinned({
       "noteID": [array._id],
@@ -47,4 +48,16 @@ export class UpdatenoteComponent implements OnInit {
     this.snackBar.open("Can’t edit in Trash", "Ok", { duration: 5000 })
   }
 
+
+  del(array){
+    console.log("kjdhkjshadhsadhkljashdlhasdhh");
+    
+    this.noteservice.reminder({
+      "noteID": [array._id],
+      "reminder":""
+    }).subscribe(result=>{
+      this.snackBar.open("Reminder deleted","ok",{duration:5000})
+      array.reminder=""
+    })
+  }
 }

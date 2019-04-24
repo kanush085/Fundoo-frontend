@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ViewEncapsulation } from '@angular/core';
 import { NoteService } from 'src/app/service/noteservice/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 
@@ -7,7 +7,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
   selector: 'app-iconlist',
   templateUrl: './iconlist.component.html',
   styleUrls: ['./iconlist.component.scss'],
-  encapsulation:ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class IconlistComponent implements OnInit {
   @Input() doarchive: boolean;
@@ -20,11 +20,16 @@ export class IconlistComponent implements OnInit {
   @Output() unarchiveCard = new EventEmitter();
   @Output() trashCard = new EventEmitter();
   @Output() archivednoteCard = new EventEmitter();
+  @Output() remindernoteCard = new EventEmitter();
 
-  dateObj=new Date();
+  dateObj = new Date();
+  date: Date
+  timeRem
   constructor(private noteService: NoteService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+
+
   }
 
   doArchive(card) {
@@ -46,11 +51,11 @@ export class IconlistComponent implements OnInit {
 
     }
 
-    
+
   }
 
   cardArchive(card) {
-    card.archive=true
+    card.archive = true
     this.archivedCard.emit(card)
   }
   doUnArchive(card) {
@@ -62,7 +67,7 @@ export class IconlistComponent implements OnInit {
     }), err => console.log(err)
   }
   notArchive(card) {
-    card.archive=false
+    card.archive = false
     this.unarchiveCard.emit(card)
   }
 
@@ -79,7 +84,7 @@ export class IconlistComponent implements OnInit {
   }
 
   deletCard(card) {
-    card.trash=true
+    card.trash = true
     this.trashCard.emit(card)
   }
 
@@ -115,8 +120,8 @@ export class IconlistComponent implements OnInit {
     }
   }
   updateColor(color, card) {
-    console.log("card......",card);
-    console.log("color",card.color);
+    console.log("card......", card);
+    console.log("color", card.color);
     this.noteService.updateColor({
       "color": color,
       "noteID": card._id
@@ -127,35 +132,79 @@ export class IconlistComponent implements OnInit {
 
 
 
- latertoday(card){
-const rem=new Date(this.dateObj.getFullYear(),this.dateObj.getMonth(),this.dateObj.getDate(),20,0,0,0)
-console.log("232131431.323546431451321",rem);
+  latertoday(card) {
+    if (card == undefined) {
+      const Todayrem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
+      this.remindernoteCard.emit(Todayrem)
+    } else {
+      const rem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
+      // console.log("232131431.323546431451321", rem);
 
-this.noteService.reminder({
-  "noteID": [card._id],
-  "reminder":rem
-}).subscribe(result=>{
-  card.reminder=rem
-  console.log(result,"reminder for note");
- 
-  
-}),err=>console.log(err);
-
+      this.noteService.reminder({
+        "noteID": [card._id],
+        "reminder": rem
+      }).subscribe(result => {
+        card.reminder = rem
+        console.log(result, "reminder for note");
+      }), err => console.log(err);
+    }
   }
 
-  Tommrow(card){
-    const Tomrem=new Date(this.dateObj.getFullYear(),this.dateObj.getMonth(),(this.dateObj.getDate()+1),20,0,0,0)
-    console.log("wsemsdsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSkl,;",Tomrem);
-    this.noteService.reminder({
-      "noteID": [card._id],
-      "reminder":Tomrem
-    }).subscribe(result=>{
-      console.log(result,"reminder in tom");
-      card.reminder=Tomrem
-      
-    })
-    
+  Tommrow(card) {
+    if (card == undefined) {
+      const Trem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), (this.dateObj.getDate() + 1), 20, 0, 0, 0)
+      this.remindernoteCard.emit(Trem)
+    } else {
+      const Tomrem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), (this.dateObj.getDate() + 1), 20, 0, 0, 0)
+      // console.log("wsemsdsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSkl,;", Tomrem);
+      this.noteService.reminder({
+        "noteID": [card._id],
+        "reminder": Tomrem
+      }).subscribe(result => {
+        console.log(result, "reminder in tom");
+        card.reminder = Tomrem
+
+      })
+    }
+  }
+  NextWeek(card) {
+    if (card == undefined) {
+      const next = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), (this.dateObj.getDate() + 7), 8, 0, 0, 0)
+      this.remindernoteCard.emit(next)
+    } else {
+      const nextWeek = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), (this.dateObj.getDate() + 7), 8, 0, 0, 0)
+      console.log("nextWeek", nextWeek);
+      this.noteService.reminder({
+        "noteID": [card._id],
+        "reminder": nextWeek
+      }).subscribe(result => {
+        console.log(result, "reminder next week");
+        card.reminder = nextWeek
+
+      })
+    }
+  }
+
+  time(setTime) {
+    this.timeRem = setTime
   }
 
 
+  saveReminder(card) {
+    if (card == undefined) {
+      this.date.setHours(this.timeRem)
+      this.remindernoteCard.emit(this.date)
+    } else {
+      if (this.date != undefined) {
+        this.date.setHours(this.timeRem)
+        this.noteService.reminder({
+          "noteID": [card._id],
+          "reminder": this.date
+        }).subscribe(result => {
+          console.log("reminder in coustom", result);
+          card.reminder = this.date
+        })
+      }
+    }
+  }
 }
