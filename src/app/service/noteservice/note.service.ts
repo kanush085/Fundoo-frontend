@@ -45,4 +45,9 @@ export class NoteService {
     return this.http.put('reminder',data)
   }
 
+  pushNotification(data){
+    return this.http.postJSON('pushNotification',data)
+  }
+
+
 }

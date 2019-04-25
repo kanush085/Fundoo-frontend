@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl,FormGroupDirective, NgForm, Validators  } from '@angular/forms';
-import{Router}from '@angular/router'
-import{ErrorStateMatcher}from'@angular/material/core';
- import { MatSnackBar } from '@angular/material';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router'
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material';
 // import{HttpService} from "../../service/http/http.service"
- import{UserService} from "../../service/userservice/userservices.service"
+import { UserService } from "../../service/userservice/userservices.service"
 //  import { JwtHelperService } from '@auth0/angular-jwt';
 import { from } from 'rxjs';
 import { error } from 'util';
+import { NoteService } from 'src/app/service/noteservice/note.service';
 
-export class MyErrorStateMatcher implements  ErrorStateMatcher{
-  isErrorState(control :FormControl |null,form:FormGroupDirective|NgForm|null):boolean{
-    const isSubmitted=form&&form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched|| isSubmitted));
+import * as firebase from "firebase";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
 
   }
 }
@@ -23,62 +26,78 @@ export class MyErrorStateMatcher implements  ErrorStateMatcher{
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  response:any;
-  
-  constructor(private router:Router,public userService:UserService,private snackBar: MatSnackBar,) {}
+  response: any;
+
+  constructor(private noteService: NoteService,private router: Router, public userService: UserService, private snackBar: MatSnackBar, ) { }
 
   ngOnInit() {
   }
 
   hide = true;
 
-  emailFormControl=new FormControl('',[Validators.required,Validators.email])
-  password=new FormControl('',[Validators.required,Validators.minLength(6),]);
-  
-  login(){
+  emailFormControl = new FormControl('', [Validators.required, Validators.email])
+  password = new FormControl('', [Validators.required, Validators.minLength(6),]);
+
+  login() {
     try {
-  
-      if( this.emailFormControl.value == "" || this.password.value == "") {
-       throw "Fields cannot be empty...!"
+
+      if (this.emailFormControl.value == "" || this.password.value == "") {
+        throw "Fields cannot be empty...!"
       }
-      var model={
-        email:this.emailFormControl.value,
-        password:this.password.value
+      var model = {
+        email: this.emailFormControl.value,
+        password: this.password.value,
+        // firebasetoken:localStorage.getItem('firebasetoken')
       }
       console.log(model);
-this.userService.login(model).subscribe(data =>{
-  console.log(data);
-  this.response=data;
-  // const helper = new JwtHelperService();
-  // const decoded= helper.decodeToken(this.response.token);
-  // console.log("----------------------------------",decoded);
-  // console.log("-----------------------",this.response._id);
-  // console.log("123245656546546",this.response.image);
-  
-  localStorage.setItem('token',this.response.token.token)
-  localStorage.setItem('userid',this.response._id)
-  localStorage.setItem('email',this.emailFormControl.value)
-  localStorage.setItem('name',this.response.name)
-  localStorage.setItem('image',this.response.image)
-  this.snackBar.open("Logged in successfully..!","ok",{duration:5000})
-  this.router.navigate(['dashboard'])
-},error=>{
-  console.log('error',error);
-  this.snackBar.open("Login failed..!","ok",{duration:5000})
-  
-})
-     
-     
+      this.userService.login(model).subscribe(data => {
+        console.log(data);
+        this.response = data;
+        localStorage.setItem('token', this.response.token.token)
+        localStorage.setItem('userid', this.response._id)
+        localStorage.setItem('email', this.emailFormControl.value)
+        localStorage.setItem('name', this.response.name)
+        localStorage.setItem('image', this.response.image)
+        this.snackBar.open("Logged in successfully..!", "ok", { duration: 5000 })
+
+
+
+        const askForPermissioToReceiveNotifications = async () => {
+          try {
+          const messaging = firebase.messaging();
+          await messaging.requestPermission();
+          const token = await messaging.getToken();
+          console.log("FireBase token is:", token);
+          } catch (error) {
+          console.error(error);
+          }
+          };
+        var obj={
+        userid:this.response._id,
+        firebasetoken:localStorage.getItem('firebasetoken')
+
+        }
+        this.noteService.pushNotification(obj).subscribe(result=>{
+          console.log("after push notification");
+          
+        })
+
+        this.router.navigate(['dashboard'])
+      }, error => {
+        console.log('error', error);
+        this.snackBar.open("Login failed..!", "ok", { duration: 5000 })
+
+      })
     } catch (error) {
-      this.snackBar.open(error,"ok",{duration:20000})
+      this.snackBar.open(error, "ok", { duration: 20000 })
       console.log(error);
-      
+
     }
   }
-  register(){
+  register() {
     this.router.navigate(['register'])
   }
-  forgotpassword(){
+  forgotpassword() {
     this.router.navigate(['forgotpassword']);
   }
   matcher = new MyErrorStateMatcher();

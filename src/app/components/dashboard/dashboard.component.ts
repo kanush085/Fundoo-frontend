@@ -39,6 +39,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     
+
+    
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -46,6 +48,8 @@ export class DashboardComponent implements OnInit {
   signout(){  
     localStorage.clear()
     this.router.navigate(['login'])
+
+    
   }
   refresh(): void {
     window.location.reload();
