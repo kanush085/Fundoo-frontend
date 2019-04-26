@@ -70,14 +70,14 @@ export class DisplaynoteComponent implements OnInit {
 
     })
   }
-  openDialog(array, trash) {
+  openDialog(array, trash,archived) {
     this.ispinbar = array.pinned
     var isArchive = array.archive
     var deletcard = array.trash
  
     const dialogRef = this.dialog.open(UpdatenoteComponent, {
       width: '600px',
-      data: { array, trash }
+      data: { array, trash,archived }
 
     });
     dialogRef.afterClosed().subscribe(result => {

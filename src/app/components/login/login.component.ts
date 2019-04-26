@@ -27,8 +27,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
   response: any;
-
-  constructor(private noteService: NoteService,private router: Router, public userService: UserService, private snackBar: MatSnackBar, ) { }
+  token
+  constructor(private noteService: NoteService, private router: Router, public userService: UserService, private snackBar: MatSnackBar, ) { }
 
   ngOnInit() {
   }
@@ -59,30 +59,9 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('name', this.response.name)
         localStorage.setItem('image', this.response.image)
         this.snackBar.open("Logged in successfully..!", "ok", { duration: 5000 })
-
-
-
-        const askForPermissioToReceiveNotifications = async () => {
-          try {
-          const messaging = firebase.messaging();
-          await messaging.requestPermission();
-          const token = await messaging.getToken();
-          console.log("FireBase token is:", token);
-          } catch (error) {
-          console.error(error);
-          }
-          };
-        var obj={
-        userid:this.response._id,
-        firebasetoken:localStorage.getItem('firebasetoken')
-
-        }
-        this.noteService.pushNotification(obj).subscribe(result=>{
-          console.log("after push notification");
-          
-        })
-
         this.router.navigate(['dashboard'])
+
+        // this.askForPermissioToReceiveNotifications(this.response)
       }, error => {
         console.log('error', error);
         this.snackBar.open("Login failed..!", "ok", { duration: 5000 })
@@ -94,6 +73,41 @@ export class LoginComponent implements OnInit {
 
     }
   }
+
+
+  // askForPermissioToReceiveNotifications = async (data) => {
+  //   try {
+
+  //     // this.initializeFirebase()
+  //     const messaging = firebase.messaging();
+  //     await messaging.requestPermission();
+  //     this.token = await messaging.getToken();
+  //     console.log("FireBase token is:", this.token);
+
+  //     var obj = {
+  //       userid: data._id,
+  //       firebasetoken: this.token
+  //     }
+  //     this.noteService.pushNotification(obj).subscribe(result => {
+  //       console.log("after push notification");
+  //       console.log("result", result);
+  //     })
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // initializeFirebase = () => {
+  //   firebase.initializeApp({
+  //     messagingSenderId: "274182103612",
+  //     databaseURL: "https://fundoo-notes-57ac2.firebaseio.com"
+
+  //   });
+    // use other service worker
+    // navigator.serviceWorker.register("/my-sw.js").then(registration => {
+    // firebase.messaging().useServiceWorker(registration);
+    // });
+  // };
   register() {
     this.router.navigate(['register'])
   }

@@ -5,7 +5,7 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 import { mergeMapTo } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs'
-
+import { HttpService } from "../http/http.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class MessagingService {
   constructor(
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
-    private angularFireMessaging: AngularFireMessaging) {
+    private angularFireMessaging: AngularFireMessaging,private http:HttpService) {
 
 
     this.angularFireMessaging.messaging.subscribe(
@@ -35,21 +35,29 @@ export class MessagingService {
  * @param userId userId as a key 
  * @param token token as a value
  */
-  updateToken(userId, token) {
+  updateToken(token) {
     // we can change this function to request our backend service
-    this.angularFireAuth.authState.pipe(take(1)).subscribe(
-      () => {
-        const data = {};
-        data[userId] = token
-        this.angularFireDB.object('fcmTokens/').update(data).then(() => {
-          console.log("updateToken");
+const body={ 
+  "userId":localStorage.getItem('userid'),
+  "firebasetoken": token
+ }
 
-        })
-          .catch(err => {
-            console.log("Firebase error");
+return this.http.postJSON('pushNotification',body);
 
-          })
-      })
+
+    // this.angularFireAuth.authState.pipe(take(1)).subscribe(
+    //   () => {
+    //     const data = {};
+    //     data[userId] = token
+    //     this.angularFireDB.object('fcmTokens/').update(data).then(() => {
+    //       console.log("updateToken");
+
+    //     })
+    //       .catch(err => {
+    //         console.log("Firebase error");
+
+    //       })
+    //   })
   }
 
 
@@ -64,7 +72,13 @@ export class MessagingService {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
         console.log(token);
-        // this.updateToken(userId, token);
+         this.updateToken( token).subscribe(data=>{
+           console.log(data);
+           
+         },err=>{
+           console.log(err);
+           
+         })
         // localStorage.setItem('firebasetoken', token)
       },
       (err) => {

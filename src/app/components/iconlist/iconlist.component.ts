@@ -59,6 +59,8 @@ export class IconlistComponent implements OnInit {
     this.archivedCard.emit(card)
   }
   doUnArchive(card) {
+    console.log("in unarchive", card);
+
     this.noteService.archiveNote({
       "archive": false,
       "noteID": [card._id]
@@ -137,8 +139,11 @@ export class IconlistComponent implements OnInit {
       const Todayrem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
       this.remindernoteCard.emit(Todayrem)
     } else {
-      const rem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
-      // console.log("232131431.323546431451321", rem);
+      // const rem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
+      const rem=new Date();
+      let min=rem.getMinutes()+1;
+      rem.setMinutes(min);
+      console.log("232131431.323546431451321", rem);
 
       this.noteService.reminder({
         "noteID": [card._id],
@@ -197,9 +202,20 @@ export class IconlistComponent implements OnInit {
     } else {
       if (this.date != undefined) {
         this.date.setHours(this.timeRem)
+
+        console.log('time is   ',this.date
+        );
+        
+ const date=new Date();
+date.setMinutes(date.getMinutes()+1);
+
+console.log(date);
+
+
+
         this.noteService.reminder({
           "noteID": [card._id],
-          "reminder": this.date
+          "reminder": date
         }).subscribe(result => {
           console.log("reminder in coustom", result);
           card.reminder = this.date

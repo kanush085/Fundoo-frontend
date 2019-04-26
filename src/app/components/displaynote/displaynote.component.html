@@ -6,7 +6,7 @@
         <mat-card class="matcard" fxLayout='column' *ngFor='let array of cards' [style.backgroundColor]="array.color">
 
             <div fxLayout='row' fxLayoutAlign="space-between center">
-                <div class="title" (click)="openDialog(array,trash)">
+                <div class="title" (click)="openDialog(array,trash,archived)">
                     {{array.title}}
                 </div>
                 <div class="barpin" *ngIf="trash!='trash'">
@@ -21,7 +21,7 @@
 
                 </div>
             </div>
-            <div class="sasas" (click)="openDialog(array,trash)">
+            <div class="sasas" (click)="openDialog(array,trash,archived)">
                 {{array.description}}
             </div>
 

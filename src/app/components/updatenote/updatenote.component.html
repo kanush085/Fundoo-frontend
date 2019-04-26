@@ -7,7 +7,7 @@
       <div *ngIf="data.trash=='trash'" (click)="openSnackBar()">{{data.array.title}}</div>
       <div *ngIf="data.trash!='trash'">
         <button *ngIf="!data.array.pinned" matTooltip="Pin note" mat-icon-button color="basic"
-          (click)="pinnedbar(data.array)" >
+          (click)="pinnedbar(data.array)">
 
           <img src="../../../assets/pinbar.svg" />
         </button>
@@ -77,8 +77,11 @@
         </mat-menu>
       </div>
       <!-- icon -->
-      <div fxFlex='100' *ngIf="data.trash!='trash'">
-        <app-iconlist [card]='data.array'></app-iconlist>
+      <div fxFlex='100' *ngIf="data.trash!='trash' ">
+        <!-- <ng-template #Unarchive> -->
+          <app-iconlist [card]='data.array' [more]="data.archived"></app-iconlist>
+        <!-- </ng-template> -->
+
       </div>
 
       <div class="btn">
