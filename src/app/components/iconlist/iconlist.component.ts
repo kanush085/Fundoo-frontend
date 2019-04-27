@@ -1,6 +1,7 @@
-import { Component, OnInit, EventEmitter, Output, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ViewEncapsulation,  } from '@angular/core';
 import { NoteService } from 'src/app/service/noteservice/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -8,8 +9,15 @@ import { MatSnackBar, MatDialog } from '@angular/material';
   templateUrl: './iconlist.component.html',
   styleUrls: ['./iconlist.component.scss'],
   encapsulation: ViewEncapsulation.None
+
 })
 export class IconlistComponent implements OnInit {
+
+
+
+
+
+
   @Input() doarchive: boolean;
   @Input() more;
   @Input() card: any
@@ -26,7 +34,7 @@ export class IconlistComponent implements OnInit {
   date: Date
   timeRem
   constructor(private noteService: NoteService, private snackBar: MatSnackBar) { }
-
+timeCustom=new FormControl();
   ngOnInit() {
 
 
@@ -139,11 +147,11 @@ export class IconlistComponent implements OnInit {
       const Todayrem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
       this.remindernoteCard.emit(Todayrem)
     } else {
-      // const rem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
-      const rem=new Date();
-      let min=rem.getMinutes()+1;
-      rem.setMinutes(min);
-      console.log("232131431.323546431451321", rem);
+      const rem = new Date(this.dateObj.getFullYear(), this.dateObj.getMonth(), this.dateObj.getDate(), 20, 0, 0, 0)
+      // const rem=new Date();
+      // let min=rem.getMinutes()+1;
+      // rem.setMinutes(min);
+      // console.log("232131431.323546431451321", rem);
 
       this.noteService.reminder({
         "noteID": [card._id],
@@ -191,7 +199,11 @@ export class IconlistComponent implements OnInit {
   }
 
   time(setTime) {
+    console.log(this.timeCustom.value,setTime);
+    
     this.timeRem = setTime
+    console.log(this.timeRem);
+    
   }
 
 
@@ -206,16 +218,16 @@ export class IconlistComponent implements OnInit {
         console.log('time is   ',this.date
         );
         
- const date=new Date();
-date.setMinutes(date.getMinutes()+1);
+//  const date=new Date();
+// date.setMinutes(date.getMinutes()+1);
 
-console.log(date);
+// console.log(date);
 
 
 
         this.noteService.reminder({
           "noteID": [card._id],
-          "reminder": date
+          "reminder": this.date
         }).subscribe(result => {
           console.log("reminder in coustom", result);
           card.reminder = this.date

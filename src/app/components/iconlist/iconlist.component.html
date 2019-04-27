@@ -77,10 +77,19 @@
                       <mat-option value="option3" (click)=time(20)> 8:00 PM</mat-option>
                     </div>
 
+                    <div class="ngx-material-timepicker-example__form-group" (click)="$event.stopPropagation()">
+                      <input placeholder="Default time 11:11 pm" aria-label="default time" [ngxTimepicker]="defaultTime" [formControl]="timeCustom"
+                    readonly>
+                      <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'" ></ngx-material-timepicker>
+                      <mat-option  [value]="timeCustom" (click)= "time(20)">{{timeCustom.value}} </mat-option>
+                      <button></button>
+                    </div>
+
+
                   </mat-select>
                 </mat-form-field>
               </div>
-              <mat-form-field class="custom" (click)="$event.stopPropagation()">
+              <!-- <mat-form-field class="custom" (click)="$event.stopPropagation()">
                 <mat-select placeholder="custom">
                   <mat-option value="option4"> Does not repeat</mat-option>
 
@@ -92,7 +101,13 @@
 
                   <mat-option value="option4"> Yearly</mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
+
+
+
+          
+
+
               <div class="save" fxLayout="row" fxLayoutAlign="end end">
                 <button mat-button (click)="saveReminder(card)">
                   Save
@@ -100,12 +115,12 @@
               </div>
             </mat-list>
           </mat-nav-list>
-
         </mat-menu>
       </div>
-
     </mat-nav-list>
   </mat-menu>
+
+
 
   <!-- Collaborator icon -->
   <button id="coll" mat-icon-button matTooltip="Collaborator">
@@ -586,45 +601,3 @@
 
 
 
-
-<!-- <mat-menu #remindme="matMenu" class="matmenu">
-      <div class="remaindMenu">
-          <app-reminder></app-reminder> -->
-<!-- <mat-nav-list>
-          <mat-list role="List">
-            <mat-list-item role="listitem">
-              <p>Reminder :</p>
-            </mat-list-item>
-            <mat-list-item>
-              <p>Later Today  <span id="later">8:00 PM</span></p>
-            </mat-list-item>
-            <mat-list-item>
-              <p>Tomorrow  <span id="tom">8:00 AM</span></p>
-            </mat-list-item>
-            <mat-list-item>
-              <p>Next week  <span id="nextweek">Mon,8:00AM</span></p>
-            </mat-list-item>
-            <mat-list-item>
-              <button mat-menu-item [matMenuTriggerFor]="menu6">
-                <mat-icon>
-                  <img src="../../../assets/image/outline-schedule-24px.svg">
-                </mat-icon>Pick date & time
-            </button>
-            </mat-list-item>
-            <div>
-              <mat-menu #menu6="matMenu">
-                <mat-nav-list>
-                  <mat-list>
-                      <div class="pickdate">
-                          <mat-list-item id="pickAdjust">
-                            <span>Pick date and Time </span>
-                          </mat-list-item>
-                        </div>
-                  </mat-list>
-                </mat-nav-list>
-              </mat-menu>
-            </div>
-          </mat-list>
-        </mat-nav-list> -->
-<!-- </div>
-    </mat-menu> -->

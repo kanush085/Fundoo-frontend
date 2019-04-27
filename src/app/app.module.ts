@@ -47,6 +47,8 @@ import { AngularFireModule } from '@angular/fire';
 import { MessagingService } from './service/shared/messaging.service';
 import { environment } from '../environments/environment';
 import { AsyncPipe } from '../../node_modules/@angular/common';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+
 
 @NgModule({
   declarations: [
@@ -102,7 +104,7 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
-
+    NgxMaterialTimepickerModule
    
     
   ],
