@@ -8,6 +8,7 @@ import { DataService } from "../../service/dataservice/data.service"
 import { ImageCropperComponent } from "../image-cropper/image-cropper.component";
 import { MessagingService } from 'src/app/service/shared/messaging.service';
 import * as firebase from "firebase";
+import { LabelsComponent } from '../labels/labels.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -137,4 +138,30 @@ export class DashboardComponent implements OnInit {
     })
 
   }
+
+
+  openLabels(){
+
+    const dialogRef = this.dialog.open(LabelsComponent, {
+      width: '300px',
+      // data: { array, trash,archived }
+    
+    });
+
+
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+  
+    })
+
+    }
+
+
+
+    
 }
+
+
+

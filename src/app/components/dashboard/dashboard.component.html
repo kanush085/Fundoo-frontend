@@ -172,30 +172,30 @@
       [matMenuTriggerFor]="accountMenu" matTooltip="Google Account">
     </button> -->
     <mat-menu #menu1="matMenu" class="menu-button">
-    <div  class="backgroundimage" >
+      <div class="backgroundimage">
         <button (click)="$event.stopPropagation()"
-        [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover','width':'65px','height':'65px'}"
-        (click)="imageSelectFile.click()" matTooltip="Fundoo Account" mat-mini-fab class="imageSelect">
-        <div mat-raised-button class="change">change</div>
-      </button>
-      <div  >
-          <div  class="profile">
+          [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover','width':'65px','height':'65px'}"
+          (click)="imageSelectFile.click()" matTooltip="Fundoo Account" mat-mini-fab class="imageSelect">
+          <div mat-raised-button class="change">change</div>
+        </button>
+        <div>
+          <div class="profile">
             {{username}}
           </div>
-          <div  class="profile1" >
+          <div class="profile1">
             {{email}}
           </div>
         </div>
-    </div>
+      </div>
       <input fxHide class="image" type="file" (change)="fileUpload($event)" #imageSelectFile>
-      
+
       <mat-divider></mat-divider>
       <!-- <button mat-flat-button (click)="addAccount()">Add account</button> -->
-     <div class="signout"  >
-        <button  mat-flat-button (click)="signout()">
-            Sign out
-      </button>
-    </div>
+      <div class="signout">
+        <button mat-flat-button (click)="signout()">
+          Sign out
+        </button>
+      </div>
     </mat-menu>
   </mat-toolbar>
 
@@ -211,7 +211,7 @@
               Notes</mat-list-item>
           </div>
 
-          <div style="outline: none">
+          <div   [routerLinkActive]="['active']" [routerLink]="['reminder']" style="outline: none">
             <mat-list-item role="listitem" (click)="reminders()" id="rem">
               <img id="img2" src="../../../assets/reminder.svg" />
               Reminders</mat-list-item>
@@ -220,7 +220,7 @@
           <mat-divider></mat-divider>
           <div style="outline: none">
             <p id="para">labels</p>
-            <mat-list-item role="listitem" (click)="openLabel()" id="lable">
+            <mat-list-item role="listitem" id="lable" (click)=openLabels()>
               <img id="img2" src="../../../assets/EditLabel.svg" />
               Edit label
             </mat-list-item>

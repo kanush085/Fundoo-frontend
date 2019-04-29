@@ -75,39 +75,6 @@ export class LoginComponent implements OnInit {
   }
 
 
-  // askForPermissioToReceiveNotifications = async (data) => {
-  //   try {
-
-  //     // this.initializeFirebase()
-  //     const messaging = firebase.messaging();
-  //     await messaging.requestPermission();
-  //     this.token = await messaging.getToken();
-  //     console.log("FireBase token is:", this.token);
-
-  //     var obj = {
-  //       userid: data._id,
-  //       firebasetoken: this.token
-  //     }
-  //     this.noteService.pushNotification(obj).subscribe(result => {
-  //       console.log("after push notification");
-  //       console.log("result", result);
-  //     })
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // initializeFirebase = () => {
-  //   firebase.initializeApp({
-  //     messagingSenderId: "274182103612",
-  //     databaseURL: "https://fundoo-notes-57ac2.firebaseio.com"
-
-  //   });
-    // use other service worker
-    // navigator.serviceWorker.register("/my-sw.js").then(registration => {
-    // firebase.messaging().useServiceWorker(registration);
-    // });
-  // };
   register() {
     this.router.navigate(['register'])
   }

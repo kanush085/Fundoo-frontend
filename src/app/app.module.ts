@@ -48,6 +48,8 @@ import { MessagingService } from './service/shared/messaging.service';
 import { environment } from '../environments/environment';
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { LabelsComponent } from './components/labels/labels.component';
+import { ReminderComponent } from './components/reminder/reminder.component';
 
 
 @NgModule({
@@ -66,6 +68,8 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     TrashComponent,
     UpdatenoteComponent,
     ImageCropperComponent,
+    LabelsComponent,
+    ReminderComponent,
     
 
 

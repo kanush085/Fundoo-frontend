@@ -21,7 +21,7 @@ export class DisplaynoteComponent implements OnInit {
   @Input() cards;
   @Input() archived
   @Input() trash
-
+  @Input() reminder
   @Output() Pinned = new EventEmitter();
   @Output() UnPinned = new EventEmitter();
   @Output() isPinned = new EventEmitter();
@@ -70,14 +70,14 @@ export class DisplaynoteComponent implements OnInit {
 
     })
   }
-  openDialog(array, trash,archived) {
+  openDialog(array, trash, archived) {
     this.ispinbar = array.pinned
     var isArchive = array.archive
     var deletcard = array.trash
- 
+
     const dialogRef = this.dialog.open(UpdatenoteComponent, {
       width: '600px',
-      data: { array, trash,archived }
+      data: { array, trash, archived }
 
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -92,7 +92,7 @@ export class DisplaynoteComponent implements OnInit {
           this.cards.splice(ind, 1)
         }
       }
-      if (result.array.reminder=="") {
+      if (result.array.reminder == "") {
         this.delete(result.array)
       }
 

@@ -1,0 +1,69 @@
+
+@font-face {
+    font-family: googlefonts;
+    src: url("../../fonts/GoogleSans-Regular.ttf");
+  }
+  
+.editlabels{
+    font-family: 'googlefonts',arial,sans-serif;
+        color: #202124;
+        letter-spacing: .00625em;
+        font-family: 'Google Sans',Roboto,Arial,sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        height: 25px;
+    
+}
+
+
+
+.mat-dialog-container {
+    padding: 0px !important;
+   border-radius: 0% !important
+    }
+
+    .labels{
+        height: 120px;
+    }
+
+    .main1{
+        display: flex;
+        -webkit-align-items: center;
+        align-items: center;
+        height: 45px;
+    }
+
+.btn{
+    background: none;
+    border: 0;
+    opacity: 0.58;
+    cursor: pointer;
+    outline: none
+}
+.create{
+    color: #202124;
+    letter-spacing: .00625em;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    font-family: 'googlefonts',arial,sans-serif !important;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 15px;
+    border: none;
+    border-bottom: 0.05px solid #dadce0;
+    outline: none
+
+}
+
+.done{
+    border-top: 1px solid #dadce0;
+    padding: 15px 10px;
+    text-align: right;
+}
+.labels{
+    max-height: 392px;
+   
+    padding: 15px;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, ViewEncapsulation,  } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ViewEncapsulation, } from '@angular/core';
 import { NoteService } from 'src/app/service/noteservice/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
@@ -33,8 +33,9 @@ export class IconlistComponent implements OnInit {
   dateObj = new Date();
   date: Date
   timeRem
+  subtime: any
   constructor(private noteService: NoteService, private snackBar: MatSnackBar) { }
-timeCustom=new FormControl();
+  timeCustom = new FormControl();
   ngOnInit() {
 
 
@@ -199,40 +200,62 @@ timeCustom=new FormControl();
   }
 
   time(setTime) {
-    console.log(this.timeCustom.value,setTime);
-    
+    console.log("abhsgfdoklmdmjdjdkdkkik", setTime);
     this.timeRem = setTime
-    console.log(this.timeRem);
-    
+    console.log("1111111111111111111111111111111111", this.timeRem);
+
   }
 
 
   saveReminder(card) {
+    var h;
+    var m;
+    console.log(this.date);
     if (card == undefined) {
-      this.date.setHours(this.timeRem)
-      this.remindernoteCard.emit(this.date)
-    } else {
-      if (this.date != undefined) {
-        this.date.setHours(this.timeRem)
 
-        console.log('time is   ',this.date
-        );
-        
-//  const date=new Date();
-// date.setMinutes(date.getMinutes()+1);
-
-// console.log(date);
-
-
-
-        this.noteService.reminder({
-          "noteID": [card._id],
-          "reminder": this.date
-        }).subscribe(result => {
-          console.log("reminder in coustom", result);
-          card.reminder = this.date
-        })
+      if (this.timeRem.substring(6) == 'pm') {
+        h = parseInt(this.timeRem.substring(0, 2)) + 12
+        m = parseInt(this.timeRem.substring(3, 6))
+      } else {
+        h = parseInt(this.timeRem.substring(0, 2));
+        m = parseInt(this.timeRem.substring(3, 6))
       }
+      var date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), h, m);
+      // this.date.setHours(this.timeRem)
+      this.remindernoteCard.emit(date)
+    } else {
+      console.log(">>>>>>>>>>>>", this.timeRem);
+      if (this.timeRem.substring(6) == 'pm') {
+        h = parseInt(this.timeRem.substring(0, 2)) + 12
+        m = parseInt(this.timeRem.substring(3, 6))
+      } else {
+        h = parseInt(this.timeRem.substring(0, 2));
+        m = parseInt(this.timeRem.substring(3, 6))
+      }
+      var date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), h, m);
+      console.log(date.toJSON());
+      this.noteService.reminder({
+        "noteID": [card._id],
+        "reminder": date
+      }).subscribe(result => {
+        console.log("reminder in coustom", result);
+        card.reminder = date
+      })
     }
   }
 }
+
+
+// this.date.setHours(Number(this.timeRem.substring(0, 2)) + 12)
+// this.date.setMinutes(this.timeRem.substring(3, 6))
+
+ // this.subtime = this.timeRem.substring(6)
+      // if (this.subtime == 'pm') {
+      //   console.log("hjsgdhjgasdsbdhgsadgaskjdgasghdkjsgjdfhajsdgdghjhadghjasgdj", Number(this.timeRem.substring(0, 2)) + 12)
+      //   this.date.setHours(Number(this.timeRem.substring(0, 2)) + 12)
+      //   this.date.setMinutes(this.timeRem.substring(3, 6))
+      // } else if (this.subtime == 'am') {
+      //   console.log("hjsgdhjgasdsbdhgsadgaskjdgasghdkjsgjdfhajsdgdghjhadghjasgdj", Number(this.timeRem.substring(0, 2)) + 12)
+      //   this.date.setHours(Number(this.timeRem.substring(0, 2)))
+      //   this.date.setMinutes(this.timeRem.substring(3, 6))
+      // }
