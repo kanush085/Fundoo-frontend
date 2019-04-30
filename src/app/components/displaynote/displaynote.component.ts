@@ -195,6 +195,10 @@ export class DisplaynoteComponent implements OnInit {
       console.log("delete reminder", data);
       array.reminder = ""
       this.snackBar.open("Reminder deleted", "Ok", { duration: 5000 })
+      if (array.reminder == "") {
+        let ind = this.cards.indexOf(array)
+        this.cards.splice(ind, 1)
+      }
     })
   }
 

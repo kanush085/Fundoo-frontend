@@ -49,5 +49,13 @@ export class NoteService {
   //   return this.http.postJSON('pushNotification',data)
   // }
 
+  label(data)
+  {
+    return this.http.postJSON('createLabel',data)
+  }
 
+  getLabel()
+  {
+    return this.http.getHttp('getLabel')
+  }
 }

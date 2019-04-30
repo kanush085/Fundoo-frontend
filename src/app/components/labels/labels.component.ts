@@ -1,5 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { DashboardComponent, DialogData } from '../dashboard/dashboard.component';
+import { FormControl } from '@angular/forms';
+import { NoteService } from 'src/app/service/noteservice/note.service';
+
 
 @Component({
   selector: 'app-labels',
@@ -11,11 +15,43 @@ import { MatDialog } from '@angular/material';
 })
 export class LabelsComponent implements OnInit {
 
-  constructor( public dialog: MatDialog) { }
+  create = new FormControl("");
+  array:any =[]
+
+  constructor(public dialogRef: MatDialogRef<DashboardComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private noteService: NoteService) { }
 
   ngOnInit() {
+
+    this.noteService.getLabel().subscribe(data=>{
+      console.log("get labels ",data);
+      this.array=data
+      console.log(this.array,"in array");
+      
+    })
   }
 
 
 
+
+  done() {
+    this.dialogRef.close();
+  }
+
+
+
+  tick() {
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",this.create.value);
+    this.noteService.label({
+      "userId": localStorage.getItem('userid'),
+      "label": this.create.value
+    }).subscribe(data => {
+      console.log("label addded successfully", data);
+
+      // this.noteService.getLabel().subscribe(data => {
+      //   console.log("get labels", data);
+
+      // })
+    })
+  }
 }

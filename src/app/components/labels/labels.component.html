@@ -4,16 +4,29 @@
   </div>
   <div class="main1">
 
-    <button class="btn"  matTooltip="Cancel">
+    <button class="btn" matTooltip="Cancel">
       <img src="../../../assets/labelscancel.svg">
     </button>
-    <input type="text" class="create" placeholder="Create new label">
-
-    <button class="btn"   matTooltip="Create label">
+    <input type="text" class="create" [(formControl)]="create" placeholder="Create new label">
+    <button class="btn" matTooltip="Create label" (click)="tick()">
       <img src="../../../assets/correct.svg">
     </button>
+
+  </div>
+  <div class="main1" *ngFor='let labels of array.data'>
+
+    <button class="btn" matTooltip="Cancel">
+      <img src="../../../assets/label2 (1).svg">
+    </button>
+    <div class="gun">
+      {{labels.label}}
+    </div>
+    <button class="btn" matTooltip="Create label" (click)="tick()">
+      <img src="../../../assets/pencil.svg">
+    </button>
+
   </div>
 </div>
 <div class="done">
- <button class="btn"> Done</button>
+  <button class="btn" (click)="done()" [mat-dialog-close]="data"> Done</button>
 </div>

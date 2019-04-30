@@ -10,6 +10,14 @@ import { MessagingService } from 'src/app/service/shared/messaging.service';
 import * as firebase from "firebase";
 import { LabelsComponent } from '../labels/labels.component';
 
+
+
+export interface DialogData {
+  array:  [];
+
+}
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -29,6 +37,8 @@ export class DashboardComponent implements OnInit {
   side = false;
   img = localStorage.getItem('image');
   flag: boolean = true;
+  // array = []
+  // labels=["hello","hiii"]
   private _mobileQueryListener: () => void;
   constructor(media: MediaMatcher,
     private router: Router,
@@ -57,7 +67,7 @@ export class DashboardComponent implements OnInit {
     localStorage.clear()
     this.router.navigate(['login']);
     this.deletePushToken()
-  
+
   }
 
   deletePushToken = async () => {
@@ -67,7 +77,7 @@ export class DashboardComponent implements OnInit {
       const messaging = firebase.messaging();
       const token = await messaging.getToken();
       console.log("in signout ", token);
-      let res=await messaging.deleteToken(token);
+      let res = await messaging.deleteToken(token);
       console.log("after signout", res);
 
     } catch (error) {
@@ -140,27 +150,24 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  openLabels(){
+  openLabels(labels) {
 
     const dialogRef = this.dialog.open(LabelsComponent, {
       width: '300px',
-      // data: { array, trash,archived }
-    
+      // data: { labels }
+
     });
 
-
-
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-  
+      console.log("123456",result);
+
     })
 
-    }
+  }
 
 
 
-    
+
 }
 
 

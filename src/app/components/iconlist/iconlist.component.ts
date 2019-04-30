@@ -29,6 +29,8 @@ export class IconlistComponent implements OnInit {
   @Output() trashCard = new EventEmitter();
   @Output() archivednoteCard = new EventEmitter();
   @Output() remindernoteCard = new EventEmitter();
+  @Output() reminderCard = new EventEmitter();
+
 
   dateObj = new Date();
   date: Date
@@ -240,22 +242,8 @@ export class IconlistComponent implements OnInit {
       }).subscribe(result => {
         console.log("reminder in coustom", result);
         card.reminder = date
+        
       })
     }
   }
 }
-
-
-// this.date.setHours(Number(this.timeRem.substring(0, 2)) + 12)
-// this.date.setMinutes(this.timeRem.substring(3, 6))
-
- // this.subtime = this.timeRem.substring(6)
-      // if (this.subtime == 'pm') {
-      //   console.log("hjsgdhjgasdsbdhgsadgaskjdgasghdkjsgjdfhajsdgdghjhadghjasgdj", Number(this.timeRem.substring(0, 2)) + 12)
-      //   this.date.setHours(Number(this.timeRem.substring(0, 2)) + 12)
-      //   this.date.setMinutes(this.timeRem.substring(3, 6))
-      // } else if (this.subtime == 'am') {
-      //   console.log("hjsgdhjgasdsbdhgsadgaskjdgasghdkjsgjdfhajsdgdghjhadghjasgdj", Number(this.timeRem.substring(0, 2)) + 12)
-      //   this.date.setHours(Number(this.timeRem.substring(0, 2)))
-      //   this.date.setMinutes(this.timeRem.substring(3, 6))
-      // }

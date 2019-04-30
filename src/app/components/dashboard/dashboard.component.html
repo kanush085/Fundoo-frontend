@@ -218,12 +218,18 @@
           </div>
 
           <mat-divider></mat-divider>
-          <div style="outline: none">
+          <div style="outline: none" >
             <p id="para">labels</p>
-            <mat-list-item role="listitem" id="lable" (click)=openLabels()>
+
+            <mat-list-item role="listitem" id="lable" *ngFor='let label of labels'>
+              <img id="img6" src="../../../assets/label2 (1).svg" />
+              {{label}}
+            </mat-list-item>
+            <mat-list-item role="listitem" id="lable" (click)=openLabels(labels)>
               <img id="img2" src="../../../assets/EditLabel.svg" />
               Edit label
             </mat-list-item>
+            
           </div>
 
           <mat-divider></mat-divider>
