@@ -19,20 +19,30 @@ export class ReminderComponent implements OnInit {
   }
   getReminderCards() {
     this.noteService.getNote().subscribe((data) => {
-      console.log("133545315413131",data);
-      
+      console.log("133545315413131", data);
+
       this.card = data['data']
-     
+
       for (let i = 0; i < this.card.length; i++) {
-        if (!this.card[i].trash && this.card[i].reminder) {
+        if (!this.card[i].trash && this.card[i].reminder != "") {
           console.log("Entered");
           this.reminderCard.push(this.card[i])
           console.log("reminder notes", this.reminderCard);
         }
       }
+
+
+
     }), err => {
       console.log(err)
     }
   }
-  
+  reminder($event) {
+    let ind = this.reminderCard.indexOf($event)
+    if (ind != -1) {
+      this.reminderCard.splice(ind, 1)
+    }
+  }
+
+
 }

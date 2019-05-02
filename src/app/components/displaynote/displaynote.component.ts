@@ -3,6 +3,7 @@ import { NoteService } from "../../service/noteservice/note.service"
 import { DataService } from "../../service/dataservice/data.service"
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { UpdatenoteComponent } from "../updatenote/updatenote.component";
+import { MockResourceLoader } from '@angular/compiler/testing';
 
 export interface DialogData {
   array: [];
@@ -22,9 +23,11 @@ export class DisplaynoteComponent implements OnInit {
   @Input() archived
   @Input() trash
   @Input() reminder
+  @Input() more
   @Output() Pinned = new EventEmitter();
   @Output() UnPinned = new EventEmitter();
   @Output() isPinned = new EventEmitter();
+  @Output() isreminder = new EventEmitter();
   disdate
   tomdate = new Date()
   nextweek = new Date()
@@ -46,10 +49,8 @@ export class DisplaynoteComponent implements OnInit {
   ngOnInit() {
     this.disdate = new Date()
     this.tomdate = new Date(this.tomdate.getFullYear(), this.tomdate.getMonth(), (this.tomdate.getDate() + 1), 20, 0, 0, 0)
-    // console.log("gggggggggggggggggggggggggggggggggggggggg", this.tomdate);
     this.nextweek = new Date(this.nextweek.getFullYear(), this.nextweek.getMonth(), (this.nextweek.getDate() + 7), 8, 0, 0, 0)
-    // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", this.nextweek);
-
+    
     this.data.currentMessage.subscribe(message => {
       console.log('message from service ', message);
       this.view = message;
@@ -74,6 +75,7 @@ export class DisplaynoteComponent implements OnInit {
     this.ispinbar = array.pinned
     var isArchive = array.archive
     var deletcard = array.trash
+   
 
     const dialogRef = this.dialog.open(UpdatenoteComponent, {
       width: '600px',
@@ -92,10 +94,6 @@ export class DisplaynoteComponent implements OnInit {
           this.cards.splice(ind, 1)
         }
       }
-      if (result.array.reminder == "") {
-        this.delete(result.array)
-      }
-
       this.noteService.editTitle({
         "noteID": result['array']._id,
         "title": result['array'].title
@@ -106,7 +104,6 @@ export class DisplaynoteComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
       console.log("The dialog is closed after editing the description");
       this.noteService.editDescription({
         "noteID": result['array']._id,
@@ -195,10 +192,7 @@ export class DisplaynoteComponent implements OnInit {
       console.log("delete reminder", data);
       array.reminder = ""
       this.snackBar.open("Reminder deleted", "Ok", { duration: 5000 })
-      if (array.reminder == "") {
-        let ind = this.cards.indexOf(array)
-        this.cards.splice(ind, 1)
-      }
+      this.isreminder.emit(array)
     })
   }
 

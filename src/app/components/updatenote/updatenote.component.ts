@@ -50,14 +50,13 @@ console.log("11111111111111111111",array);
 
 
   del(array){
-    console.log("kjdhkjshadhsadhkljashdlhasdhh");
-    
     this.noteservice.reminder({
       "noteID": [array._id],
       "reminder":""
     }).subscribe(result=>{
-      this.snackBar.open("Reminder deleted","ok",{duration:5000})
       array.reminder=""
+      this.snackBar.open("Reminder deleted","ok",{duration:5000})
+  
     })
   }
 }

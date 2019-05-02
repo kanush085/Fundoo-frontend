@@ -221,11 +221,11 @@
           <div style="outline: none" >
             <p id="para">labels</p>
 
-            <mat-list-item role="listitem" id="lable" *ngFor='let label of labels'>
+            <mat-list-item role="listitem" id="lable" *ngFor='let label of labels.data'>
               <img id="img6" src="../../../assets/label2 (1).svg" />
-              {{label}}
+              {{label.label}}
             </mat-list-item>
-            <mat-list-item role="listitem" id="lable" (click)=openLabels(labels)>
+            <mat-list-item role="listitem" id="lable" (click)=openLabels()>
               <img id="img2" src="../../../assets/EditLabel.svg" />
               Edit label
             </mat-list-item>

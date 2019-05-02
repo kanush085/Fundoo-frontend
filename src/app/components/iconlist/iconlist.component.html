@@ -55,37 +55,34 @@
                       <div class="afternoon">
                         Morning
                       </div>
-                      <mat-option value="option0" (click)="time('08:00 am')">8:00 AM</mat-option>
+                      <mat-option value="option0" (click)="time('08:00')">8:00 AM</mat-option>
                     </div>
                     <div style="display: flex">
                       <div class="afternoon">
                         Afternoon
                       </div>
-                      <mat-option value="option1" (click)="time('1:00 pm')">1:00 PM</mat-option>
+                      <mat-option value="option1" (click)="time('13:00')">1:00 PM</mat-option>
                     </div>
                     <div style="display: flex">
                       <div class="afternoon ">
                         Evening
                       </div>
-                      <mat-option value="option2" (click)="time('06:00 pm')">6:00 PM</mat-option>
+                      <mat-option value="option2" (click)="time('18:00')">6:00 PM</mat-option>
                     </div>
 
                     <div style="display: flex">
                       <div class="afternoon ">
                         Night
                       </div>
-                      <mat-option value="option3" (click)="time('08:00 pm')"> 8:00 PM</mat-option>
+                      <mat-option value="option3" (click)="time('20:00')"> 8:00 PM</mat-option>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group" (click)="$event.stopPropagation()">
                       <input placeholder="Default time 11:11 pm" aria-label="default time" [ngxTimepicker]="defaultTime" [formControl]="timeCustom"
                     readonly>
                       <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'" ></ngx-material-timepicker>
                       <mat-option  [value]="timeCustom" (click)= "time(timeCustom.value)">{{timeCustom.value}} </mat-option>
-                      <button></button>
                     </div>
-                  </mat-select>
-
-                  
+                  </mat-select> 
                 </mat-form-field>
               </div>
     

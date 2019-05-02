@@ -27,35 +27,37 @@ export class NoteService {
   updateColor(data) {
     return this.http.put('updateColor', data)
   }
-  
-  editTitle(data){
-    return this.http.put('editTitle',data)
+
+  editTitle(data) {
+    return this.http.put('editTitle', data)
   }
 
-  editDescription(data){
-    return this.http.put('editDescription',data)
+  editDescription(data) {
+    return this.http.put('editDescription', data)
   }
 
-  doPinned(data){
-    return this.http.put('doPinned',data)
+  doPinned(data) {
+    return this.http.put('doPinned', data)
   }
 
-  reminder(data)
-  {
-    return this.http.put('reminder',data)
+  reminder(data) {
+    return this.http.put('reminder', data)
   }
 
   // pushNotification(data){
   //   return this.http.postJSON('pushNotification',data)
   // }
 
-  label(data)
-  {
-    return this.http.postJSON('createLabel',data)
+  label(data) {
+    return this.http.postJSON('createLabel', data)
   }
 
-  getLabel()
-  {
+  getLabel() {
     return this.http.getHttp('getLabel')
   }
+
+  deletelabel(data) {
+    return this.http.postJSON('deleteLabel', data)
+  }
+
 }

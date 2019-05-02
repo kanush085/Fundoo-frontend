@@ -9,12 +9,12 @@ import { ImageCropperComponent } from "../image-cropper/image-cropper.component"
 import { MessagingService } from 'src/app/service/shared/messaging.service';
 import * as firebase from "firebase";
 import { LabelsComponent } from '../labels/labels.component';
+import { NoteService } from 'src/app/service/noteservice/note.service';
 
 
 
 export interface DialogData {
-  array:  [];
-
+ 
 }
 
 
@@ -38,12 +38,12 @@ export class DashboardComponent implements OnInit {
   img = localStorage.getItem('image');
   flag: boolean = true;
   // array = []
-  // labels=["hello","hiii"]
+   labels:any=[]
   private _mobileQueryListener: () => void;
   constructor(media: MediaMatcher,
     private router: Router,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar, changeDetectorRef: ChangeDetectorRef, private service: DataService, private messagingService: MessagingService) {
+    private snackBar: MatSnackBar, changeDetectorRef: ChangeDetectorRef, private service: DataService, private messagingService: MessagingService,private noteService:NoteService) {
     this.mobileQuery = media.matchMedia("(max-width: 600px)");
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -59,6 +59,13 @@ export class DashboardComponent implements OnInit {
     this.messagingService.receiveMessage()
     this.messages = this.messagingService.currentMessage
 
+
+    this.noteService.getLabel().subscribe(data=>{
+      console.log("get labels in dash board ",data);
+      this.labels=data
+      console.log(this.labels,"in array");
+      
+    })
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -72,8 +79,6 @@ export class DashboardComponent implements OnInit {
 
   deletePushToken = async () => {
     try {
-
-      // this.initializeFirebase()
       const messaging = firebase.messaging();
       const token = await messaging.getToken();
       console.log("in signout ", token);
@@ -85,16 +90,6 @@ export class DashboardComponent implements OnInit {
     }
   };
 
-
-  //  initializeFirebase = () => {
-  //   firebase.initializeApp({
-  //   messagingSenderId: "183007367478"
-  //   });
-  //   // use other service worker
-  //   // navigator.serviceWorker.register("/my-sw.js").then(registration => {
-  //   // firebase.messaging().useServiceWorker(registration);
-  //   // });
-  //   };
   refresh(): void {
     window.location.reload();
 
@@ -150,17 +145,16 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  openLabels(labels) {
+  openLabels() {
 
     const dialogRef = this.dialog.open(LabelsComponent, {
       width: '300px',
-      // data: { labels }
+      data: this.labels.data
 
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("123456",result);
-
+    
     })
 
   }

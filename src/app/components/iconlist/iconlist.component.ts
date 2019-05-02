@@ -235,6 +235,8 @@ export class IconlistComponent implements OnInit {
         m = parseInt(this.timeRem.substring(3, 6))
       }
       var date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), h, m);
+      console.log("dat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",date);
+      
       console.log(date.toJSON());
       this.noteService.reminder({
         "noteID": [card._id],

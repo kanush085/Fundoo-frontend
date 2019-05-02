@@ -15,18 +15,21 @@
   </div>
   <div class="main1" *ngFor='let labels of array.data'>
 
-    <button class="btn" matTooltip="Cancel">
-      <img src="../../../assets/label2 (1).svg">
+    <button class="btn1">
+      <img src="../../../assets/savelabel.svg">
     </button>
-    <div class="gun">
+    <button class="btn2" matTooltip="Delete label" (click)=deletelabel(labels) >
+      <img src="../../../assets/trashlabel.svg">
+    </button>
+    <div class="gun" contenteditable="true">
       {{labels.label}}
     </div>
-    <button class="btn" matTooltip="Create label" (click)="tick()">
+    <button class="btn" matTooltip="Rename label" (click)="tick()">
       <img src="../../../assets/pencil.svg">
     </button>
 
   </div>
 </div>
 <div class="done">
-  <button class="btn" (click)="done()" [mat-dialog-close]="data"> Done</button>
+  <button class="btn3" (click)="done()" [mat-dialog-close]="data"> Done</button>
 </div>
