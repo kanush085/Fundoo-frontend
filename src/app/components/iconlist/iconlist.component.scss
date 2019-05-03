@@ -286,6 +286,8 @@ background-repeat: no-repeat
   cursor: default;
   font-size: 14px;
   padding: 0 12px;
+  font-family: 'googlefonts',arial,sans-serif
+
 }
 .search123
 {
@@ -312,7 +314,8 @@ background-repeat: no-repeat
     padding: 2px 22px 2px 2px;
     width: 100%;
     outline: none;
-    border: none
+    border: none;
+    font-family: 'googlefonts',arial,sans-serif
 }
 
 .displaydiv{
@@ -359,5 +362,7 @@ background-repeat: no-repeat
   width: 16px;
   flex-shrink: 0;
   top: 1px !important;
+  font-family: 'googlefonts',arial,sans-serif
+
   
 }
