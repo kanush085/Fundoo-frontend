@@ -165,21 +165,34 @@
          -->
     <div *ngIf="type!='note'">
       <button mat-menu-item (click)="deleteNote(card)">Delete Note</button>
-      <button mat-menu-item (click)="$event.stopPropagation()">add label</button>
-      <!-- <div *ngIf='flag4==true'>
-          <button mat-menu-item (click)='checklist(card)' (click)='HideTick()'>show tick boxes</button>
-        </div>
-        <div *ngIf='flag4==false'>
-          <button mat-menu-item (click)='checklist(card)'>Hide tick boxes</button>
-        </div>
-        <button mat-menu-item>copy to google docs</button> -->
+      <button mat-menu-item (click)="$event.stopPropagation()" [matMenuTriggerFor]="addLabel">add label</button>
     </div>
   </mat-menu>
 </div>
 
+<!-- add label -->
+
+<div class="mainlabel">
+
+<mat-menu #addLabel="matMenu">
 
 
+<div class="labelname">Label note</div>
+<div class="search123">
+<div class="searchicon"></div>
+<input type="text"  (click)="$event.stopPropagation()" maxlength="50"placeholder="Enter label name" class="inputlabel">
+</div>
 
+<div class="displaydiv" *ngFor='let label of labels.data'>
+
+  <!-- <div class="checkbox"></div> -->
+  <mat-checkbox  class="matbox" (click)="$event.stopPropagation()">{{label.label}}</mat-checkbox>
+  <!-- <div class="hooo">hooooooooooo</div> -->
+  
+  
+  </div>
+</mat-menu>
+</div>
 
 
 

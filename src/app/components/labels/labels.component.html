@@ -8,24 +8,28 @@
       <img src="../../../assets/labelscancel.svg">
     </button>
     <input type="text" class="create" [(formControl)]="create" placeholder="Create new label">
-    <button class="btn" matTooltip="Create label" (click)="tick()">
+    <button class="btncorrect" matTooltip="Create label" (click)="tick()">
       <img src="../../../assets/correct.svg">
     </button>
 
   </div>
-  <div class="main1" *ngFor='let labels of array.data'>
+  <div class="main1" *ngFor='let labels of array.data; let i = index'>
 
     <button class="btn1">
       <img src="../../../assets/savelabel.svg">
     </button>
-    <button class="btn2" matTooltip="Delete label" (click)=deletelabel(labels) >
+    <button class="btn2" matTooltip="Delete label" (click)=deletelabel(labels)>
       <img src="../../../assets/trashlabel.svg">
     </button>
-    <div class="gun" contenteditable="true">
-      {{labels.label}}
+    <div class="gun">
+      <input class="input" type="text" [(ngModel)]="labels.label" (click)="reverseFlag()">
     </div>
-    <button class="btn" matTooltip="Rename label" (click)="tick()">
+    <button *ngIf="flag==true" class="btn" matTooltip="Rename label" mat-icon-button (click)="reverseFlag()">
       <img src="../../../assets/pencil.svg">
+    </button>
+    <button *ngIf="flag==false" class="btn" matTooltip="Rename label" mat-icon-button (click)="reverseFlag()"
+      (click)="editlabels(labels, i )">
+      <img src="../../../assets/correct.svg">
     </button>
 
   </div>

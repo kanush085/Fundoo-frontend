@@ -64,8 +64,9 @@ export class DashboardComponent implements OnInit {
       console.log("get labels in dash board ",data);
       this.labels=data
       console.log(this.labels,"in array");
-      
+      this.service.labelMessage(this.labels)
     })
+    
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

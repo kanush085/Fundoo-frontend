@@ -14,7 +14,7 @@ import { NoteService } from 'src/app/service/noteservice/note.service';
 
 })
 export class LabelsComponent implements OnInit {
-
+  flag = true
   create = new FormControl("");
   array: any = []
 
@@ -36,14 +36,9 @@ export class LabelsComponent implements OnInit {
     })
   }
 
-
-
-
   done() {
     this.dialogRef.close();
   }
-
-
 
   tick() {
     this.noteService.label({
@@ -56,6 +51,10 @@ export class LabelsComponent implements OnInit {
       console.log(this.data);
     })
     this.create.reset()
+
+
+
+
   }
 
 
@@ -63,16 +62,28 @@ export class LabelsComponent implements OnInit {
     console.log("In label delete ", label);
     var key = this.array.data.indexOf(label);
     this.array.data.splice(key, 1)
-    this.data.splice(key,1)
+    this.data.splice(key, 1)
     this.noteService.deletelabel({
       "labelID": [label._id]
-
     }).subscribe(data => {
       console.log(data, "Delete label data");
-
       this.snackBar.open("Label Deleted", "Ok", { duration: 5000 })
-
     }), err => console.log(err);
+  }
+
+  reverseFlag() {
+    this.flag = !this.flag
+  }
+  editlabels(label, index) {
+    console.log("Came to to edit label");
+    this.noteService.editlabel({
+      "labelID": label._id,
+      "label": label.label
+    }).subscribe(data => {
+      console.log("editlabel data ", data);
+      this.data[index]['label'] = label.label
+
+    })
 
   }
 

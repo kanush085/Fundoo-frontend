@@ -60,4 +60,8 @@ export class NoteService {
     return this.http.postJSON('deleteLabel', data)
   }
 
+  editlabel(data) {
+    return this.http.put('editLabel', data)
+  }
+
 }

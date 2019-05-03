@@ -313,7 +313,8 @@ mat-sidenav {
 
   .mat-list-base .mat-list-item {
     font-size: 0.9rem;
-    font-weight: 500
+    opacity: 1;
+    // font-weight: 500
 }
 
 
@@ -329,4 +330,10 @@ mat-sidenav {
 #img6{
   opacity: 0.5;
   margin-right: 10%;
+}
+
+.mat-list-item{
+  font-family: 'googlefonts',arial,sans-serif !important;
+  color: inherit !important;
+
 }

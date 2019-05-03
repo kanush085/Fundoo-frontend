@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, ViewEncapsulation, } fr
 import { NoteService } from 'src/app/service/noteservice/note.service';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
+import { DataService } from "../../service/dataservice/data.service"
 
 
 @Component({
@@ -31,17 +32,26 @@ export class IconlistComponent implements OnInit {
   @Output() remindernoteCard = new EventEmitter();
   @Output() reminderCard = new EventEmitter();
 
-
   dateObj = new Date();
   date: Date
   timeRem
   subtime: any
-  constructor(private noteService: NoteService, private snackBar: MatSnackBar) { }
+  constructor(private noteService: NoteService, private snackBar: MatSnackBar,private data:DataService) { }
   timeCustom = new FormControl();
+  labels: any = []
   ngOnInit() {
 
+    this.getlabels()
+  }
+
+  getlabels() {
+      this.data.getlabelmessage.subscribe(result=>{
+        this.labels = result
+      })
+    
 
   }
+
 
   doArchive(card) {
     // console.log(this.card, "cardddd")
@@ -235,8 +245,8 @@ export class IconlistComponent implements OnInit {
         m = parseInt(this.timeRem.substring(3, 6))
       }
       var date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), h, m);
-      console.log("dat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",date);
-      
+      console.log("dat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", date);
+
       console.log(date.toJSON());
       this.noteService.reminder({
         "noteID": [card._id],
@@ -244,7 +254,7 @@ export class IconlistComponent implements OnInit {
       }).subscribe(result => {
         console.log("reminder in coustom", result);
         card.reminder = date
-        
+
       })
     }
   }

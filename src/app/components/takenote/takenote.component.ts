@@ -47,7 +47,8 @@ export class TakenoteComponent implements OnInit {
         archive: this.isArchive,
         color: this.bgcolor,
         trash: false,
-        image: ""
+        image: "",
+        label:""
 
       };
       this.httpService.postJSON("createNote", this.reqbody).subscribe(data => {
