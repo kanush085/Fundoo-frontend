@@ -31,24 +31,29 @@ export class IconlistComponent implements OnInit {
   @Output() archivednoteCard = new EventEmitter();
   @Output() remindernoteCard = new EventEmitter();
   @Output() reminderCard = new EventEmitter();
+  @Output() labelCard = new EventEmitter();
 
   dateObj = new Date();
   date: Date
   timeRem
   subtime: any
-  constructor(private noteService: NoteService, private snackBar: MatSnackBar,private data:DataService) { }
+  constructor(private noteService: NoteService, private snackBar: MatSnackBar, private data: DataService) { }
   timeCustom = new FormControl();
   labels: any = []
+  flag1 = true;
+  text: string
   ngOnInit() {
 
     this.getlabels()
   }
 
   getlabels() {
-      this.data.getlabelmessage.subscribe(result=>{
-        this.labels = result
-      })
-    
+    this.data.getlabelmessage.subscribe(result => {
+      this.labels = result
+      // console.log(this.labels, "fttytytyyuyuyuyuyuuuuuu");
+
+    })
+
 
   }
 
@@ -212,9 +217,9 @@ export class IconlistComponent implements OnInit {
   }
 
   time(setTime) {
-    console.log("abhsgfdoklmdmjdjdkdkkik", setTime);
+    // console.log("abhsgfdoklmdmjdjdkdkkik", setTime);
     this.timeRem = setTime
-    console.log("1111111111111111111111111111111111", this.timeRem);
+    // console.log("1111111111111111111111111111111111", this.timeRem);
 
   }
 
@@ -245,7 +250,7 @@ export class IconlistComponent implements OnInit {
         m = parseInt(this.timeRem.substring(3, 6))
       }
       var date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), h, m);
-      console.log("dat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", date);
+      // console.log("dat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", date);
 
       console.log(date.toJSON());
       this.noteService.reminder({
@@ -258,4 +263,46 @@ export class IconlistComponent implements OnInit {
       })
     }
   }
+
+
+
+
+  labelselect(card, lab) {
+    if (card == undefined) {
+      this.labelCard.emit(lab.label)
+    } else {
+      for (let i = 0; i < card.label.length; i++) {
+        if (card.label[i] == lab.label) {
+          return
+        }
+      }
+      // console.log("selected labels in matcheckbox ", lab.label);
+      this.noteService.saveLabeltoNote({
+        "noteID": [this.card._id],
+        "label": lab.label
+      }).subscribe(result => {
+        console.log("label select ", result);
+        this.card.label.push(lab.label)
+       
+      })
+    }
+  }
+
+  one() {
+    this.noteService.label({
+      "userId": localStorage.getItem('userid'),
+      "label": this.text
+    }).subscribe(result => {
+      console.log("in serach label addlabel", result);
+      this.labels.data.push(result.data)
+      this.text = "";
+
+    })
+  }
+
+  reverseFlag() {
+    this.flag1 = !this.flag1
+  }
+
+
 }

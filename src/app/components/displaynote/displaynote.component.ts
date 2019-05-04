@@ -197,4 +197,22 @@ export class DisplaynoteComponent implements OnInit {
   }
 
 
+  deletelabel(array,label)
+  {
+    // console.log("In delete label note",array.label);
+    
+    this.noteService.deleteNoteLabel({
+      "noteID": [array._id],
+      "label":label
+    }).subscribe(data=>{
+      console.log("After deleting the label ",data);
+     let ind = array.label.indexOf(label)
+     if(ind != -1)
+     {
+       array.label.splice(ind,1)
+     }
+      
+    })
+  }
+
 }

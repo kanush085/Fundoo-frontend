@@ -64,4 +64,13 @@ export class NoteService {
     return this.http.put('editLabel', data)
   }
 
+  saveLabeltoNote(data) {
+    return this.http.put('saveLabel', data)
+  }
+
+  deleteNoteLabel(data)
+  {
+  return  this.http.put('deleteNoteLabel',data)
+  }
+
 }

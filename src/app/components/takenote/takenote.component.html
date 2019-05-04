@@ -130,10 +130,15 @@
             <textarea class="textArea" matTextareaAutosize placeholder="Take a note..."
                 [formControl]="noteContent"></textarea>
         </div>
+        <div fxLayout="row wrap"  >
+            <mat-chip-list *ngFor="let i of isLable">
+                <mat-chip >{{i}}</mat-chip>
+              </mat-chip-list>
+        </div>
 
         <div fxFlex="10" fxLayoutAlign="start center">
             <div fxFlex="100">
-                <app-iconlist (color)="changeColor($event)" (archivednoteCard)="archive($event)" (remindernoteCard)="reminderCard($event)"></app-iconlist>
+                <app-iconlist (color)="changeColor($event)" (archivednoteCard)="archive($event)" (remindernoteCard)="reminderCard($event)" (labelCard)="labelcard($event)"></app-iconlist>
             </div>
             <div fxFlex="20" fxLayoutAlign="end center">
                 <button class="addnote" mat-button (click)="addNote()">

@@ -41,7 +41,7 @@ export class NoteComponent implements OnInit {
         {
           this.cards.push(carddata[i])
         }     
-    else if(!carddata[i].archive && !carddata[i].trash && !carddata[i].pinned){
+    else if(!carddata[i].archive && !carddata[i].trash && !carddata[i].pinned ){
       this.Unpinnedcards.push(carddata[i])
       }
       // console.log("array cards",this.cards);

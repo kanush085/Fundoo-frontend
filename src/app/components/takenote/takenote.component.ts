@@ -11,9 +11,10 @@ import { EventEmitter } from "@angular/core";
 })
 export class TakenoteComponent implements OnInit {
   isArchive: boolean = false
-  isPinned:boolean = false; 
-  isreminder:string=""
-  Pinned=false
+  isPinned: boolean = false;
+  isreminder: string = ""
+  isLable = []
+  Pinned = false
   flag = true;
   reqbody: any
   bgcolor: any = "#FFFFFF";
@@ -32,9 +33,9 @@ export class TakenoteComponent implements OnInit {
 
   addNote() {
     this.flag = !this.flag;
-  
+
     if ((this.noteTitle.value == null || this.noteTitle.value == '') && (this.noteContent.value == null || this.noteContent.value == '')) {
-      this.bgcolor="#FFFFFF"
+      this.bgcolor = "#FFFFFF"
       return
     }
     else {
@@ -48,7 +49,7 @@ export class TakenoteComponent implements OnInit {
         color: this.bgcolor,
         trash: false,
         image: "",
-        label:""
+        label: this.isLable
 
       };
       this.httpService.postJSON("createNote", this.reqbody).subscribe(data => {
@@ -56,39 +57,46 @@ export class TakenoteComponent implements OnInit {
         this.addingNote.emit(data['message'])
         this.noteTitle.reset()
         this.noteContent.reset()
+        this.isLable=[];
         // this.isPinned=false
-        this.bgcolor="#FFFFFF"
+        this.bgcolor = "#FFFFFF"
       }),
         err => {
           console.log(err);
         };
     }
-    this.Pinned=!this.Pinned
+    this.Pinned = !this.Pinned
   }
-  pinned(){    
-    this.Pinned=!this.Pinned
+  pinned() {
+    this.Pinned = !this.Pinned
     this.isPinned = true;
   }
-  
+
   archive($event) {
     this.isArchive = $event
     this.addNote()
   }
   reverseFlag() {
     this.flag = !this.flag;
-    
+
   }
   changeColor($event) {
     this.bgcolor = $event
   }
 
-  reminderCard($event){
-    this.isreminder=$event
-    console.log("ffffffffffffffffffffffffffffffffff",this.isreminder);
-    
+  reminderCard($event) {
+    this.isreminder = $event
+    console.log("ffffffffffffffffffffffffffffffffff", this.isreminder);
+
     this.addNote()
   }
 
+
+  labelcard(event) {
+    console.log(event);
+    
+    this.isLable.push(event);
+  }
 }
 
 

@@ -50,6 +50,8 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { LabelsComponent } from './components/labels/labels.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
+import { LabelpipePipe } from './pipe/labelpipe.pipe';
+
 
 
 
@@ -71,10 +73,7 @@ import { ReminderComponent } from './components/reminder/reminder.component';
     ImageCropperComponent,
     LabelsComponent,
     ReminderComponent,
-    
-
-
-
+    LabelpipePipe,
 
   ],
   imports: [

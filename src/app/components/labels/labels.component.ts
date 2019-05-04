@@ -45,16 +45,12 @@ export class LabelsComponent implements OnInit {
       "userId": localStorage.getItem('userid'),
       "label": this.create.value
     }).subscribe(data => {
-      console.log("label addded successfully", data);
+      // console.log("label addded successfully", data);
       this.array.data.push(data.data);
       this.data.push(data.data);
-      console.log(this.data);
+      // console.log(this.data);
     })
     this.create.reset()
-
-
-
-
   }
 
 
@@ -86,6 +82,10 @@ export class LabelsComponent implements OnInit {
     })
 
   }
-
+  label(card,label)
+  {
+    console.log(">>>>>>>>>>>>>>>>>>>>>","dgjshsdkj",card,"??????????????",label);
+    
+  }
 }
 

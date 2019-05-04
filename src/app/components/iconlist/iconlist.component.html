@@ -77,15 +77,16 @@
                       <mat-option value="option3" (click)="time('20:00')"> 8:00 PM</mat-option>
                     </div>
                     <div class="ngx-material-timepicker-example__form-group" (click)="$event.stopPropagation()">
-                      <input placeholder="Default time 11:11 pm" aria-label="default time" [ngxTimepicker]="defaultTime" [formControl]="timeCustom"
-                    readonly>
-                      <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'" ></ngx-material-timepicker>
-                      <mat-option  [value]="timeCustom" (click)= "time(timeCustom.value)">{{timeCustom.value}} </mat-option>
+                      <input placeholder="Default time 11:11 pm" aria-label="default time" [ngxTimepicker]="defaultTime"
+                        [formControl]="timeCustom" readonly>
+                      <ngx-material-timepicker #defaultTime [defaultTime]="'11:11 pm'"></ngx-material-timepicker>
+                      <mat-option [value]="timeCustom" (click)="time(timeCustom.value)">{{timeCustom.value}}
+                      </mat-option>
                     </div>
-                  </mat-select> 
+                  </mat-select>
                 </mat-form-field>
               </div>
-    
+
               <!-- <mat-form-field class="custom" (click)="$event.stopPropagation()">
                 <mat-select placeholder="custom">
                   <mat-option value="option4"> Does not repeat</mat-option>
@@ -124,10 +125,10 @@
     <img id="img" src="../../../assets/color.svg" />
   </button>
 
-  <mat-menu #colorlist="matMenu" [overlapTrigger]="false" yPosition="above">
+  <mat-menu   #colorlist="matMenu" [overlapTrigger]="false" yPosition="above">
     <ng-template matMenuContent>
       <div class="buttons">
-        <div fxLayout="row" fxLayoutGap="10px" style="margin-top: 4px" *ngFor="let colors of colorArray">
+        <div fxLayout="row" fxLayoutGap="10px" style="margin-top: 2px" *ngFor="let colors of colorArray">
           <div *ngFor="let color of colors">
             <button class="colors" [ngStyle]="{ 'background-color': color.color }"
               (click)="colorsEdit(color.color,card)" matTooltip="{{ color.name }}" mat-mini-fab></button>
@@ -172,437 +173,62 @@
 
 <!-- add label -->
 
+
 <div class="mainlabel">
+  <mat-menu #addLabel="matMenu">
+    <div class="labelname">Label note</div>
+    <div class="search123">
+      <div class="searchicon"></div>
+      <input [(ngModel)]="text" (click)="$event.stopPropagation()" maxlength="50" placeholder="Enter label name"
+        (click)="reverseFlag()" class="inputlabel">
+    </div>
+    <div class="displaydiv" *ngFor='let label of labels.data | labelpipe: text'>
+      
+        <div *ngIf='flag1==true'>
+          <mat-checkbox color="primary" class="matbox" (click)="$event.stopPropagation()" (click)="labelselect(card,label)">
+            {{label.label}}
+          </mat-checkbox>
+        </div>
+        <div *ngIf='flag1==false'>
+          <mat-checkbox color="primary" class="matbox" (click)="$event.stopPropagation()" (click)="labelselect(card,label)">
+            {{label.label}}
+          </mat-checkbox>
+        </div>
+      
+      </div>
+      <div *ngIf='flag1==false' class="createSerachlabel">
+        <div class="fun" (click)="one()">
+            <img src="../../../assets/addlabel.svg">
+        </div>
+        <div class="hello">
+          Create {{text}}
+        </div>
+      </div>
 
-<mat-menu #addLabel="matMenu">
+   
 
 
-<div class="labelname">Label note</div>
-<div class="search123">
-<div class="searchicon"></div>
-<input type="text"  (click)="$event.stopPropagation()" maxlength="50"placeholder="Enter label name" class="inputlabel">
+
+
+  </mat-menu>
 </div>
 
-<div class="displaydiv" *ngFor='let label of labels.data'>
 
-  <!-- <div class="checkbox"></div> -->
-  <mat-checkbox  class="matbox" (click)="$event.stopPropagation()">{{label.label}}</mat-checkbox>
-  <!-- <div class="hooo">hooooooooooo</div> -->
-  
-  
+
+
+
+<!-- <div *ngFor='let array of labelList | labelsearch:label'>
+  <div *ngIf='flag3==true'>
+    <div fxLayout='row'>
+      <mat-checkbox (click)="checked()" (click)="$event.stopPropagation()" (click)='addLabeltocard(card,array)'>
+        {{array.label}}</mat-checkbox>
+    </div>
   </div>
-</mat-menu>
+  <div *ngIf="flag3==false">
+    <mat-checkbox (click)="$event.stopPropagation()" (click)='addLabeltocard(card,array)'>{{array.label}}</mat-checkbox>
+  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div fxLayout='row' *ngIf="flag3==false">
+  <div (click)='addLabel(label)'><img src='../../../assets/images/add_mark.svg'></div>
+  <div>Create "{{label}}"</div>
+</div> -->
