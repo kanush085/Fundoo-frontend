@@ -43,21 +43,6 @@ const body={
  }
 
 return this.http.postJSON('pushNotification',body);
-
-
-    // this.angularFireAuth.authState.pipe(take(1)).subscribe(
-    //   () => {
-    //     const data = {};
-    //     data[userId] = token
-    //     this.angularFireDB.object('fcmTokens/').update(data).then(() => {
-    //       console.log("updateToken");
-
-    //     })
-    //       .catch(err => {
-    //         console.log("Firebase error");
-
-    //       })
-    //   })
   }
 
 

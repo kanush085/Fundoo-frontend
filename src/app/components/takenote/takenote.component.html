@@ -132,7 +132,10 @@
         </div>
         <div fxLayout="row wrap"  >
             <mat-chip-list *ngFor="let i of isLable">
-                <mat-chip >{{i}}</mat-chip>
+                <mat-chip >{{i}}
+                    <mat-icon matChipRemove (click)="deletelabel(i)">cancel
+                    </mat-icon>
+                </mat-chip>
               </mat-chip-list>
         </div>
 

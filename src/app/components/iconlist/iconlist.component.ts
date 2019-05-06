@@ -104,7 +104,7 @@ export class IconlistComponent implements OnInit {
       "trash": true,
       "noteID": [card._id]
     }).subscribe(data => {
-      console.log(data, "Delete data");
+      // console.log(data, "Delete data");
       this.deletCard(card)
       this.snackBar.open("Note Trashed", "Ok", { duration: 5000 })
     }), err => console.log(err);

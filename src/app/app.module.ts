@@ -51,7 +51,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { LabelsComponent } from './components/labels/labels.component';
 import { ReminderComponent } from './components/reminder/reminder.component';
 import { LabelpipePipe } from './pipe/labelpipe.pipe';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -108,7 +108,8 @@ import { LabelpipePipe } from './pipe/labelpipe.pipe';
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    DragDropModule
    
     
   ],

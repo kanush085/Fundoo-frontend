@@ -3,6 +3,7 @@ import { HttpService } from "../../service/http/http.service";
 import { FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { EventEmitter } from "@angular/core";
+import { NoteService } from 'src/app/service/noteservice/note.service';
 
 @Component({
   selector: 'app-takenote',
@@ -20,7 +21,7 @@ export class TakenoteComponent implements OnInit {
   bgcolor: any = "#FFFFFF";
 
   constructor(private httpService: HttpService,
-    private router: Router,
+    private router: Router,private noteService:NoteService
   ) { }
 
   ngOnInit() {
@@ -53,7 +54,6 @@ export class TakenoteComponent implements OnInit {
 
       };
       this.httpService.postJSON("createNote", this.reqbody).subscribe(data => {
-        console.log(data);
         this.addingNote.emit(data['message'])
         this.noteTitle.reset()
         this.noteContent.reset()
@@ -97,6 +97,28 @@ export class TakenoteComponent implements OnInit {
     
     this.isLable.push(event);
   }
+
+
+
+  deletelabel(label)
+  {
+    // console.log("In delete label note",array.label);
+   var ind= this.isLable.indexOf(label)
+    this.isLable.splice(ind,1)
+    // this.noteService.deleteNoteLabel({
+    //   "noteID": [array._id],
+    //   "label":label
+    // }).subscribe(data=>{
+    //   console.log("After deleting the label ",data);
+    //  let ind = array.label.indexOf(label)
+    //  if(ind != -1)
+    //  {
+    //    array.label.splice(ind,1)
+    //  }
+      
+    // })
+  }
+
 }
 
 

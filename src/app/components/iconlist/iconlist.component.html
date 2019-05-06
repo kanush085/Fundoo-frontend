@@ -125,7 +125,7 @@
     <img id="img" src="../../../assets/color.svg" />
   </button>
 
-  <mat-menu   #colorlist="matMenu" [overlapTrigger]="false" yPosition="above">
+  <mat-menu #colorlist="matMenu" [overlapTrigger]="false" yPosition="above">
     <ng-template matMenuContent>
       <div class="buttons">
         <div fxLayout="row" fxLayoutGap="10px" style="margin-top: 2px" *ngFor="let colors of colorArray">
@@ -183,29 +183,31 @@
         (click)="reverseFlag()" class="inputlabel">
     </div>
     <div class="displaydiv" *ngFor='let label of labels.data | labelpipe: text'>
-      
-        <div *ngIf='flag1==true'>
-          <mat-checkbox color="primary" class="matbox" (click)="$event.stopPropagation()" (click)="labelselect(card,label)">
-            {{label.label}}
-          </mat-checkbox>
-        </div>
-        <div *ngIf='flag1==false'>
-          <mat-checkbox color="primary" class="matbox" (click)="$event.stopPropagation()" (click)="labelselect(card,label)">
-            {{label.label}}
-          </mat-checkbox>
-        </div>
-      
+
+      <div *ngIf='flag1==true'>
+        <mat-checkbox color="primary" class="matbox" (click)="$event.stopPropagation()"
+          (click)="labelselect(card,label)">
+          {{label.label}}
+        </mat-checkbox>
       </div>
-      <div *ngIf='flag1==false' class="createSerachlabel">
-        <div class="fun" (click)="one()">
-            <img src="../../../assets/addlabel.svg">
-        </div>
-        <div class="hello">
-          Create {{text}}
-        </div>
+      <div *ngIf='flag1==false'>
+        <mat-checkbox color="primary" class="matbox" (click)="$event.stopPropagation()"
+          (click)="labelselect(card,label)">
+          {{label.label}}
+        </mat-checkbox>
       </div>
 
-   
+    </div>
+    <div *ngIf='flag1==false' class="createSerachlabel">
+      <div class="fun" (click)="one()">
+        <img src="../../../assets/addlabel.svg">
+      </div>
+      <div class="hello">
+        Create "  {{text}}"
+      </div>
+    </div>
+
+
 
 
 
