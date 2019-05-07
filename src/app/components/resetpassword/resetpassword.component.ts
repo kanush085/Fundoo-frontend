@@ -50,7 +50,7 @@ export class ResetpasswordComponent implements OnInit {
         })
       }
     } catch (error) {
-      console.log(error);
+      console.log('error in try',error);
 
     }
 
