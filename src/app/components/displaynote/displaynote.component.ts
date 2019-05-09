@@ -4,6 +4,7 @@ import { DataService } from "../../service/dataservice/data.service"
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { UpdatenoteComponent } from "../updatenote/updatenote.component";
 import { MockResourceLoader } from '@angular/compiler/testing';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface DialogData {
   array: [];
@@ -50,7 +51,7 @@ export class DisplaynoteComponent implements OnInit {
     this.disdate = new Date()
     this.tomdate = new Date(this.tomdate.getFullYear(), this.tomdate.getMonth(), (this.tomdate.getDate() + 1), 20, 0, 0, 0)
     this.nextweek = new Date(this.nextweek.getFullYear(), this.nextweek.getMonth(), (this.nextweek.getDate() + 7), 8, 0, 0, 0)
-    
+
     this.data.currentMessage.subscribe(message => {
       console.log('message from service ', message);
       this.view = message;
@@ -75,7 +76,7 @@ export class DisplaynoteComponent implements OnInit {
     this.ispinbar = array.pinned
     var isArchive = array.archive
     var deletcard = array.trash
-   
+
 
     const dialogRef = this.dialog.open(UpdatenoteComponent, {
       width: '600px',
@@ -85,6 +86,9 @@ export class DisplaynoteComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       console.log('The dialog was closed', result);
+      if (result == undefined) {
+        return
+      }
       if (this.ispinbar != result.array.pinned) {
         this.isPinned.emit(result.array)
       }
@@ -105,12 +109,16 @@ export class DisplaynoteComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("The dialog is closed after editing the description");
-      this.noteService.editDescription({
-        "noteID": result['array']._id,
-        "description": result['array'].description
-      }).subscribe(result => {
-        console.log(result)
-      })
+      if (result == undefined) {
+        return
+      } else {
+        this.noteService.editDescription({
+          "noteID": result['array']._id,
+          "description": result['array'].description
+        }).subscribe(result => {
+          console.log(result)
+        })
+      }
     })
 
 
@@ -197,22 +205,25 @@ export class DisplaynoteComponent implements OnInit {
   }
 
 
-  deletelabel(array,label)
-  {
+  deletelabel(array, label) {
     // console.log("In delete label note",array.label);
-    
+
     this.noteService.deleteNoteLabel({
       "noteID": [array._id],
-      "label":label
-    }).subscribe(data=>{
-      console.log("After deleting the label ",data);
-     let ind = array.label.indexOf(label)
-     if(ind != -1)
-     {
-       array.label.splice(ind,1)
-     }
-      
+      "label": label
+    }).subscribe(data => {
+      console.log("After deleting the label ", data);
+      let ind = array.label.indexOf(label)
+      if (ind != -1) {
+        array.label.splice(ind, 1)
+      }
+
     })
+  }
+
+
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
   }
 
 }

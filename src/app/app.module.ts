@@ -76,6 +76,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 
   ],
   imports: [
+    DragDropModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -108,7 +109,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     NgxMaterialTimepickerModule,
-    DragDropModule
+  
    
     
   ],

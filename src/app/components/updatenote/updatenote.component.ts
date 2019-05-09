@@ -19,9 +19,7 @@ export class UpdatenoteComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private noteservice: NoteService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-
     
-   
   }
   pinnedbar(array) {   
     this.noteservice.doPinned({
@@ -59,4 +57,5 @@ console.log("11111111111111111111",array);
   
     })
   }
+
 }

@@ -1,8 +1,8 @@
 <div [ngClass]="sidenave">
 
-    <div [ngClass]="grid">
+    <div [ngClass]="grid" cdkDropList (cdkDropListDropped)="drop($event)">
 
-        <mat-card class="matcard" fxLayout='column' *ngFor='let array of cards' [style.backgroundColor]="array.color">
+        <mat-card class="matcard" fxLayout='column' *ngFor='let array of cards' [style.backgroundColor]="array.color" cdkDrag>
 
             <div fxLayout='row' fxLayoutAlign="space-between center">
                 <div class="title" (click)="openDialog(array,trash,archived)">
