@@ -54,6 +54,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +74,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     LabelsComponent,
     ReminderComponent,
     LabelpipePipe,
+
 
   ],
   imports: [
